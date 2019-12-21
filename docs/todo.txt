@@ -1,0 +1,10 @@
+version 0.1 : 
+ node sort.js sample.txt
+        {should return sorted lines for given file contents }
+
+
+1. formatLines
+2. sort 
+3. loadContents
+4. parseUserArgs
+5. filterUserArgs
