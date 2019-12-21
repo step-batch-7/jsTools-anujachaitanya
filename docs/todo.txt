@@ -3,8 +3,8 @@ version 0.1 :
         {should return sorted lines for given file contents }
 
 
-1. formatLines
-2. sort 
+1. formatLines // will think about this function
+Done : 2. sort 
 3. loadContents
 4. parseUserArgs
 5. filterUserArgs
