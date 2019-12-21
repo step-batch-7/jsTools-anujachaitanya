@@ -1,5 +1,5 @@
 const assert = require("chai").assert;
-const { sort, loadContents } = require("../src/sortLib");
+const { sort, loadContents, parseUserArgs } = require("../src/sortLib");
 const fs = require("fs");
 
 describe("formatLines", () => {
@@ -32,5 +32,13 @@ describe("loadContents", () => {
     const actual = loadContents("sample.txt", reader, "utf8");
     const expected = ["a", "b", "c", "d"];
     assert.deepStrictEqual(actual, expected);
+  });
+});
+
+describe("parseUserArgs", () => {
+  it("should return path for given arguments", () => {
+    const actual = "sample.txt";
+    const expected = parseUserArgs(["sample.txt"]);
+    assert.strictEqual(actual, expected);
   });
 });
