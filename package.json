@@ -1,0 +1,22 @@
+{
+  "name": "jstools-anujachaitanya",
+  "version": "1.0.0",
+  "description": "\"sort command\"",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "\"mocha\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/step-batch-7/jsTools-anujachaitanya.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/step-batch-7/jsTools-anujachaitanya/issues"
+  },
+  "homepage": "https://github.com/step-batch-7/jsTools-anujachaitanya#readme"
+}

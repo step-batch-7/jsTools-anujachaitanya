@@ -1,0 +1,104 @@
+expectation  : node sort.js sample.txt 
+          (a). has a file 
+          (b). file is not present
+    {sort.js} ==> 
+        a
+        b
+        c
+        d
+        e
+
+sort.js takes a file and sorts its contents
+
+--------------------------file is present ---------------------
+
+[1.1] last step
+
+output >> text : sorted text  
+      a
+      b
+      c
+      d
+      e
+input >> input : unsorted array of strings
+    ["e","a","d","c","b"]
+name >> takes array of strings sorts it and sends to console.log
+      sort(lines)
+
+[1.2] pervious step
+
+output >> array of strings : lines
+         ["e","a","d","c","b"]
+input >> path
+          sample.txt
+name >> takes a path loads the contents and transforms to array 
+      loadAndParseContents(path)
+
+[1.3] 
+
+output >> string : path
+            sample.txt
+input >> array of string : userArgs
+            ["sample.txt"]
+name >> parsing a path from given array
+      parsePath(userArgs)
+
+[1.4]
+
+output >> array of strings : userArgs
+        ["sample.txt"]
+input >> command Line arguments : cmdLineInput
+        ["node","sort.js","sample.txt"]
+name >> filterUserArgs(cmdLineInput)
+
+
+---------------------------no such a file--------------
+
+[1.a] 
+
+output >> text : sorted text  
+      a
+      b
+      c
+      d
+      e
+input >> input : unsorted array of strings
+    ["e","a","d","c","b"]
+name >> takes array of strings sorts it and sends to console.log
+      sort(lines)
+
+[1.b] 
+
+output >> text : filename , "No such file or directory"
+        sample.txt : no such a file or directory
+input >> string : filePath
+name >> generateErrorMessage(filePath)
+
+[2]
+
+output >> object : {lines : []} or {error}
+         {lines:["e","a","d","c","b"]} or {error : anyError}
+input >> string : filePath
+          sample.txt
+name >> takes a path loads the contents and transforms to array 
+      loadContents(filePath)
+
+
+[1.3] 
+
+output >> string : path
+            sample.txt
+input >> array of string : userArgs
+            ["sample.txt"]
+name >> parsing a path from given array
+      parsePath(userArgs)
+
+[1.4]
+
+output >> array of strings : userArgs
+        ["sample.txt"]
+input >> command Line arguments : cmdLineInput
+        ["node","sort.js","sample.txt"]
+name >> filterUserArgs(cmdLineInput)
+
+

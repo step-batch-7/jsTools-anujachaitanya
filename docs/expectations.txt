@@ -1,0 +1,17 @@
+Done : (1). node sort.js sample.txt
+Done : (2). node sort.js -k 2 -t ',' sample.txt
+Done : (3). node sort.js -k 2 -t ','
+Done : (4). cat sample.txt | node sort.js -k 2 -t ','
+Done : (5). node sort.js -r sample.txt
+(6). node sort.js -n sample.txt
+Done : (7). node sort.js
+Done : (8). cat sample.txt | node sort.js
+Done : (9). node sort.js -r 
+Done : (10). cat sample.txt | node sort.js -r
+(11). node sort.js -n 
+(12). cat sample.txt | node sort.js -n
+(13). node sort.js -f sample.txt
+(14). node sort.js -f
+(15). cat sample.txt | node sort.js -f
+(16). node sort.js -o text.txt sample.txt
+(17). node sort.js sample1.txt sample2.txt ...
