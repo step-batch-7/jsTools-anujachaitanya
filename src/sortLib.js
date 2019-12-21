@@ -3,7 +3,12 @@ const sort = function(lines) {
 };
 
 const loadContents = function(filePath, reader, encoding) {
-  const contents = reader(filePath, encoding);
-  return contents.split("\n");
+  try {
+    console.log("in try");
+    const contents = reader(filePath, encoding);
+    return contents.split("\n");
+  } catch (err) {
+    console.log(err);
+  }
 };
 module.exports = { sort, loadContents };
