@@ -28,8 +28,15 @@ describe("loadContents", () => {
     return "a\nb\nc\nd";
   };
 
+  const exists = function(filePath) {
+    assert.strictEqual(filePath, "sample.txt");
+    return true;
+  };
+
+  const fsModule = { reader, exists, encoding: "utf8" };
+
   it("should return fileContents splitted with new lines", () => {
-    const actual = loadContents("sample.txt", reader, "utf8");
+    const actual = loadContents("sample.txt", fsModule);
     const expected = ["a", "b", "c", "d"];
     assert.deepStrictEqual(actual, expected);
   });
