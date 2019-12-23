@@ -3,7 +3,8 @@ const {
   sort,
   loadContents,
   parseUserArgs,
-  generateErrorMsg
+  generateErrorMsg,
+  areOptionsValid
 } = require("../src/sortLib");
 const fs = require("fs");
 
@@ -90,5 +91,19 @@ describe("generateErrorMsg", () => {
   it("should return error with given msg", () => {
     const contents = { error: "no", sub: "file" };
     assert.throws(() => generateErrorMsg(contents), Error);
+  });
+});
+
+describe("areOptionsValid", () => {
+  it("should throw error for invalid option", () => {
+    assert.throws(() => areOptionsValid(["-x"]), Error);
+  });
+
+  it("shouldn't throw error if options are valid", () => {
+    assert.ok(areOptionsValid(["-r"]));
+  });
+
+  it("should throw error if one option is invalid and others are valid", () => {
+    assert.throws(() => areOptionsValid(["r", "-x"]), Error);
   });
 });

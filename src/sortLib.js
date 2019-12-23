@@ -13,11 +13,22 @@ const loadContents = function(filePath, fsModule) {
   return { error: "No such a file or directory", sub: filePath };
 };
 
+const areOptionsValid = function(options) {
+  const regex = /-r/g;
+  options.forEach(x => {
+    !x.match(regex) &&
+      generateErrorMsg({ error: "invalid options", sub: `option ${x}` });
+  });
+  return true;
+};
+
 const parseUserArgs = function(userArgs) {
   let parseUserArgs = { path: undefined, options: [] };
   userArgs.map(x => {
-    x.match("-r") ? parseUserArgs.options.push(x) : (parseUserArgs.path = x);
+    let option = x.split("");
+    option[0] == "-" ? parseUserArgs.options.push(x) : (parseUserArgs.path = x);
   });
+  areOptionsValid(parseUserArgs.options);
   return parseUserArgs;
 };
 
@@ -29,5 +40,6 @@ module.exports = {
   sort,
   loadContents,
   parseUserArgs,
-  generateErrorMsg
+  generateErrorMsg,
+  areOptionsValid
 };
