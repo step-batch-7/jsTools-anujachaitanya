@@ -1,4 +1,5 @@
 const { numericSort } = require("./sortTypes");
+
 const sort = function(contents) {
   let sortedLines = contents.lines.sort();
   if (contents.options.includes("-n")) sortedLines = numericSort(sortedLines);
@@ -12,7 +13,7 @@ const loadContents = function(filePath, fsModule) {
     const lines = contents.split("\n");
     return { lines: lines };
   }
-  return { error: "No such a file or directory", sub: filePath };
+  return { error: "No such a file or directory", sub: "sort" };
 };
 
 const areOptionsValid = function(options) {
