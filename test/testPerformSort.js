@@ -25,7 +25,7 @@ describe("performSort", () => {
       return false;
     };
     const fsModule = { reader: "", exists, encoding: "utf8" };
-    assert.throws(() => performSort("sample.txt", fsModule), Error);
+    assert.throws(() => performSort(["sample.txt"], fsModule), Error);
   });
 
   it("should reversely sort lines if -r options is given", () => {
@@ -43,5 +43,9 @@ describe("performSort", () => {
     const actual = performSort(["-r", "sample.txt"], fsModule);
     const expected = "d\nc\nb\na";
     assert.strictEqual(actual, expected);
+  });
+
+  it("should throw error for invalid options", () => {
+    assert.throws(() => performSort(["-x", "sample.txt"], fsModule), Error);
   });
 });

@@ -85,6 +85,10 @@ describe("parseUserArgs", () => {
     const actual = parseUserArgs(["-r", "sample.txt"]);
     assert.deepStrictEqual(actual, expected);
   });
+
+  it("should throw error for invalid options", () => {
+    assert.throws(() => parseUserArgs(["-x", "sample.txt"]), Error);
+  });
 });
 
 describe("generateErrorMsg", () => {
