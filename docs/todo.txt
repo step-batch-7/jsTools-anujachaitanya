@@ -6,5 +6,11 @@ version 0.1 :
 1. formatLines // will think about this function
 Done : 2. sort 
 Done : 3. loadContents (to make config file for fs functions
-4. parseUserArgs
-5. filterUserArgs
+Done : 4. parseUserArgs
+not needed right now : 5. filterUserArgs
+
+------------------------if file is not present--------------------
+node sort.js sampl.txt
+
+1.modify loadContents function now it will return error too.
+2. make performSort file to avoid decision making in main. 

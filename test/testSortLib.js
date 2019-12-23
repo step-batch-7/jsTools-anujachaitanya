@@ -37,7 +37,22 @@ describe("loadContents", () => {
 
   it("should return fileContents splitted with new lines", () => {
     const actual = loadContents("sample.txt", fsModule);
-    const expected = ["a", "b", "c", "d"];
+    const expected = { lines: ["a", "b", "c", "d"] };
+    assert.deepStrictEqual(actual, expected);
+  });
+
+  it("should return error object if given file is not present", () => {
+    const exists = function(filePath) {
+      assert.strictEqual(filePath, "sample.txt");
+      return false;
+    };
+
+    const fsModule = { reader: "", exists, encoding: "utf8" };
+    const actual = loadContents("sample.txt", fsModule);
+    const expected = {
+      error: "No such a file or directory",
+      sub: "sample.txt"
+    };
     assert.deepStrictEqual(actual, expected);
   });
 });

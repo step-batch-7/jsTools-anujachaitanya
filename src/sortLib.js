@@ -5,8 +5,10 @@ const sort = function(lines) {
 const loadContents = function(filePath, fsModule) {
   if (fsModule.exists(filePath)) {
     const contents = fsModule.reader(filePath, fsModule.encoding);
-    return contents.split("\n");
+    const lines = contents.split("\n");
+    return { lines: lines };
   }
+  return { error: "No such a file or directory", sub: filePath };
 };
 
 const parseUserArgs = function(userArgs) {
