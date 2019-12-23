@@ -1,23 +1,38 @@
 const assert = require("chai").assert;
-const { sort, loadContents, parseUserArgs } = require("../src/sortLib");
+const {
+  sort,
+  loadContents,
+  parseUserArgs,
+  generateErrorMsg
+} = require("../src/sortLib");
 const fs = require("fs");
 
-describe("formatLines", () => {
+describe("sort", () => {
   it("should sort the given lines on the basis of ascii values", () => {
+    const contents = { lines: ["a", "e", "c", "d"], options: [] };
     const expected = ["a", "c", "d", "e"];
-    const actual = sort(["a", "e", "c", "d"]);
+    const actual = sort(contents);
     assert.deepStrictEqual(actual, expected);
   });
 
   it("should sort the given lines if one or more lines starts with special characters", () => {
+    const contents = { lines: ["a*", "*a", "c", "d"], options: [] };
     const expected = ["*a", "a*", "c", "d"];
-    const actual = sort(["a*", "*a", "c", "d"]);
+    const actual = sort(contents);
     assert.deepStrictEqual(actual, expected);
   });
 
   it("should sort given lines if one or more lines starts with space", () => {
+    const contents = { lines: [" a", "*a", "c", "d"], options: [] };
     const expected = [" a", "*a", "c", "d"];
-    const actual = sort([" a", "*a", "c", "d"]);
+    const actual = sort(contents);
+    assert.deepStrictEqual(actual, expected);
+  });
+
+  it("should reverse sort if -r option is given", () => {
+    const contents = { lines: ["a", "e", "c", "d"], options: ["-r"] };
+    const expected = ["e", "d", "c", "a"];
+    const actual = sort(contents);
     assert.deepStrictEqual(actual, expected);
   });
 });
@@ -59,8 +74,21 @@ describe("loadContents", () => {
 
 describe("parseUserArgs", () => {
   it("should return path for given arguments", () => {
-    const actual = "sample.txt";
-    const expected = parseUserArgs(["sample.txt"]);
-    assert.strictEqual(actual, expected);
+    const expected = { path: "sample.txt", options: [] };
+    const actual = parseUserArgs(["sample.txt"]);
+    assert.deepStrictEqual(actual, expected);
+  });
+
+  it("should return path and options if options are there", () => {
+    const expected = { path: "sample.txt", options: ["-r"] };
+    const actual = parseUserArgs(["-r", "sample.txt"]);
+    assert.deepStrictEqual(actual, expected);
+  });
+});
+
+describe("generateErrorMsg", () => {
+  it("should return error with given msg", () => {
+    const contents = { error: "no", sub: "file" };
+    assert.throws(() => generateErrorMsg(contents), Error);
   });
 });

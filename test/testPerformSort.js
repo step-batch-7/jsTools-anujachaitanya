@@ -27,4 +27,21 @@ describe("performSort", () => {
     const fsModule = { reader: "", exists, encoding: "utf8" };
     assert.throws(() => performSort("sample.txt", fsModule), Error);
   });
+
+  it("should reversely sort lines if -r options is given", () => {
+    const reader = function(filePath) {
+      assert.strictEqual(filePath, "sample.txt");
+      return "a\nb\nc\nd";
+    };
+
+    const exists = function(filePath) {
+      assert.strictEqual(filePath, "sample.txt");
+      return true;
+    };
+
+    const fsModule = { reader, exists, encoding: "utf8" };
+    const actual = performSort(["-r", "sample.txt"], fsModule);
+    const expected = "d\nc\nb\na";
+    assert.strictEqual(actual, expected);
+  });
 });

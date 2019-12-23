@@ -1,5 +1,7 @@
-const sort = function(lines) {
-  return lines.sort();
+const sort = function(contents) {
+  let sortedLines = contents.lines.sort();
+  contents.options.includes("-r") && sortedLines.reverse();
+  return sortedLines;
 };
 
 const loadContents = function(filePath, fsModule) {
@@ -12,8 +14,20 @@ const loadContents = function(filePath, fsModule) {
 };
 
 const parseUserArgs = function(userArgs) {
-  const filePath = userArgs[0];
-  return filePath;
+  let parseUserArgs = { path: undefined, options: [] };
+  userArgs.map(x => {
+    x.match("-r") ? parseUserArgs.options.push(x) : (parseUserArgs.path = x);
+  });
+  return parseUserArgs;
 };
 
-module.exports = { sort, loadContents, parseUserArgs };
+const generateErrorMsg = function(error) {
+  throw new Error(`${error.sub} : ${error.error}`);
+};
+
+module.exports = {
+  sort,
+  loadContents,
+  parseUserArgs,
+  generateErrorMsg
+};

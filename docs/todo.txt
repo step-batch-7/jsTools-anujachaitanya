@@ -12,5 +12,11 @@ not needed right now : 5. filterUserArgs
 ------------------------if file is not present--------------------
 node sort.js sampl.txt
 
-1.modify loadContents function now it will return error too.
-2. make performSort file to avoid decision making in main. 
+Done : 1.modify loadContents function now it will return error too.
+Done : 2. make performSort file to avoid decision making in main. 
+
+-------------------------for option - r -------------------------
+node sort.js -r 
+
+1. have to modify parseUserArgs() function now have to handle options
+2. modify sort function for options 
