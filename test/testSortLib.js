@@ -36,6 +36,13 @@ describe("sort", () => {
     const actual = sort(contents);
     assert.deepStrictEqual(actual, expected);
   });
+
+  it("should number sort if -n option is given", () => {
+    const contents = { lines: [4, 3, 2, 1], options: ["-n"] };
+    const expected = [1, 2, 3, 4];
+    const actual = sort(contents);
+    assert.deepStrictEqual(actual, expected);
+  });
 });
 
 describe("loadContents", () => {
@@ -89,6 +96,12 @@ describe("parseUserArgs", () => {
   it("should throw error for invalid options", () => {
     assert.throws(() => parseUserArgs(["-x", "sample.txt"]), Error);
   });
+
+  it("should parse the args for -n and -r both", () => {
+    const expected = { path: "sample.txt", options: ["-r", "-n"] };
+    const actual = parseUserArgs(["-r", "-n", "sample.txt"]);
+    assert.deepStrictEqual(actual, expected);
+  });
 });
 
 describe("generateErrorMsg", () => {
@@ -109,5 +122,9 @@ describe("areOptionsValid", () => {
 
   it("should throw error if one option is invalid and others are valid", () => {
     assert.throws(() => areOptionsValid(["r", "-x"]), Error);
+  });
+
+  it("should validate if given option is -n ", () => {
+    assert.ok(areOptionsValid(["-n"]));
   });
 });

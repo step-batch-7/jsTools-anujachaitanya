@@ -1,5 +1,6 @@
 const sort = function(contents) {
   let sortedLines = contents.lines.sort();
+  contents.options.includes("-n") && sortedLines.sort((a, b) => a - b);
   contents.options.includes("-r") && sortedLines.reverse();
   return sortedLines;
 };
@@ -14,9 +15,9 @@ const loadContents = function(filePath, fsModule) {
 };
 
 const areOptionsValid = function(options) {
-  const regex = /-r/g;
+  const validOptions = ["-r", "-n"];
   options.forEach(x => {
-    !x.match(regex) &&
+    !validOptions.includes(x) &&
       generateErrorMsg({ error: "invalid options", sub: `option ${x}` });
   });
   return true;

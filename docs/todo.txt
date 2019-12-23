@@ -18,5 +18,5 @@ Done : 2. make performSort file to avoid decision making in main.
 -------------------------for option - r -------------------------
 node sort.js -r 
 
-1. have to modify parseUserArgs() function now have to handle options
-2. modify sort function for options 
+Done : 1. have to modify parseUserArgs() function now have to handle options
+Done : 2. modify sort function for options 
