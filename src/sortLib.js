@@ -36,7 +36,7 @@ const parseUserArgs = function(userArgs) {
 };
 
 const generateErrorMsg = function(error) {
-  throw new Error(`${error.sub} : ${error.error}`);
+  throw new Error(`${error.sub}: ${error.error}`);
 };
 
 module.exports = {
