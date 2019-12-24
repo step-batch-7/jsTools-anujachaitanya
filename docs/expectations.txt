@@ -1,14 +1,20 @@
 
 version : 
-
+0.1
 (1). node sort.js sample.txt
+
+0.2
 (2). node sort.js 
+
+0.3
 (3). node sort.js -r sample.txt
+
+0.2
 (4). node sort.js -r
 (5). node sort.js -n sample.txt
 (6). node sort.js -n
 
-
+0.2
 (7). node sort.js -k 2 -t "," sample.txt
 (8). node sort.js -k 2 -t ","
 (9). cat sample.txt | node sort.js
@@ -16,6 +22,7 @@ version :
 (11). cat sample.txt | node sort.js -n
 (12). cat sample.txt | node sort.js -k 2 -t ","
 
+0.3
 (13). node sort.js sample1.txt sample2.txt ...
 (14). node sort.js -r sample1.txt sample2.txt ...
 (15). node sort.js -n sample1.txt sample2.txt ... 

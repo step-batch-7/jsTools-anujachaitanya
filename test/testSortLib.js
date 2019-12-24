@@ -3,33 +3,9 @@ const { sort, parseUserArgs, getInvalidOption } = require("../src/sortLib");
 const fs = require("fs");
 
 describe("sort", () => {
-  it("should reverse sort if -r option is given", () => {
-    const expected = ["e", "d", "c", "a"];
-    const actual = sort(["-r"], ["a", "c", "d", "e"]);
-    assert.deepStrictEqual(actual, expected);
-  });
-
-  it("should number sort if -n option is given", () => {
-    const expected = [1, 2, 3, 4];
-    const actual = sort(["-n"], [1, 2, 4, 3]);
-    assert.deepStrictEqual(actual, expected);
-  });
-
-  it("should sort if both -r and -n options are given", () => {
-    const expected = [4, 3, 2, 1];
-    const actual = sort(["-n", "-r"], [1, 2, 4, 3]);
-    assert.deepStrictEqual(actual, expected);
-  });
-
-  it("should sort strings and numbers together if -n and -r option is given", () => {
-    const expected = [4, 3, 1, "a"];
-    const actual = sort(["-n", "-r"], [1, 4, 3, "a"]);
-    assert.deepStrictEqual(actual, expected);
-  });
-
-  it("should number sort if -n option is given", () => {
-    const expected = [1, 2, 3, 4];
-    const actual = sort(["-n"], [4, 3, 2, 1]);
+  it("should reverse sort given strings", () => {
+    const expected = ["a", "c", "d", "e"];
+    const actual = sort(["a", "c", "d", "e"]);
     assert.deepStrictEqual(actual, expected);
   });
 });
@@ -48,10 +24,10 @@ describe("parseUserArgs", () => {
   it("should return path and options if options are there", () => {
     const expected = {
       path: "sample.txt",
-      options: ["-r"],
+      options: [],
       invalidOption: undefined
     };
-    const actual = parseUserArgs(["-r", "sample.txt"]);
+    const actual = parseUserArgs(["sample.txt"]);
     assert.deepStrictEqual(actual, expected);
   });
   it("should parse the args for -n and -r both", () => {
