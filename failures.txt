@@ -1,0 +1,180 @@
+---------appTest/test1_should_sort_single_file.test----------
+			<= command =>
+(node sort.js ./appTest/sample.txt)
+
+			<= actual output =>
+/Users/step4/mydata/Assignments/javascript/programs/jsTools-anujachaitanya/src/performSort.js:1
+<<<<<<< HEAD
+^^
+
+SyntaxError: Unexpected token '<<'
+    at Module._compile (internal/modules/cjs/loader.js:895:18)
+    at Object.Module._extensions..js (internal/modules/cjs/loader.js:995:10)
+    at Module.load (internal/modules/cjs/loader.js:815:32)
+    at Function.Module._load (internal/modules/cjs/loader.js:727:14)
+    at Module.require (internal/modules/cjs/loader.js:852:19)
+    at require (internal/modules/cjs/helpers.js:74:18)
+    at Object.<anonymous> (/Users/step4/mydata/Assignments/javascript/programs/jsTools-anujachaitanya/sort.js:1:25)
+    at Module._compile (internal/modules/cjs/loader.js:959:30)
+    at Object.Module._extensions..js (internal/modules/cjs/loader.js:995:10)
+    at Module.load (internal/modules/cjs/loader.js:815:32)
+
+			<= expected output =>
+abc
+aed
+cdf
+edr
+sed
+---------appTest/test2_should_return_error_if_file_not_there.test----------
+			<= command =>
+(node sort.js sample.xt)
+
+			<= actual output =>
+/Users/step4/mydata/Assignments/javascript/programs/jsTools-anujachaitanya/src/performSort.js:1
+<<<<<<< HEAD
+^^
+
+SyntaxError: Unexpected token '<<'
+    at Module._compile (internal/modules/cjs/loader.js:895:18)
+    at Object.Module._extensions..js (internal/modules/cjs/loader.js:995:10)
+    at Module.load (internal/modules/cjs/loader.js:815:32)
+    at Function.Module._load (internal/modules/cjs/loader.js:727:14)
+    at Module.require (internal/modules/cjs/loader.js:852:19)
+    at require (internal/modules/cjs/helpers.js:74:18)
+    at Object.<anonymous> (/Users/step4/mydata/Assignments/javascript/programs/jsTools-anujachaitanya/sort.js:1:25)
+    at Module._compile (internal/modules/cjs/loader.js:959:30)
+    at Object.Module._extensions..js (internal/modules/cjs/loader.js:995:10)
+    at Module.load (internal/modules/cjs/loader.js:815:32)
+
+			<= expected output =>
+sort: No such a file or directory
+---------appTest/test3_should_reversely_sort.test----------
+			<= command =>
+(node sort.js -r ./appTest/sample.txt)
+
+			<= actual output =>
+/Users/step4/mydata/Assignments/javascript/programs/jsTools-anujachaitanya/src/performSort.js:1
+<<<<<<< HEAD
+^^
+
+SyntaxError: Unexpected token '<<'
+    at Module._compile (internal/modules/cjs/loader.js:895:18)
+    at Object.Module._extensions..js (internal/modules/cjs/loader.js:995:10)
+    at Module.load (internal/modules/cjs/loader.js:815:32)
+    at Function.Module._load (internal/modules/cjs/loader.js:727:14)
+    at Module.require (internal/modules/cjs/loader.js:852:19)
+    at require (internal/modules/cjs/helpers.js:74:18)
+    at Object.<anonymous> (/Users/step4/mydata/Assignments/javascript/programs/jsTools-anujachaitanya/sort.js:1:25)
+    at Module._compile (internal/modules/cjs/loader.js:959:30)
+    at Object.Module._extensions..js (internal/modules/cjs/loader.js:995:10)
+    at Module.load (internal/modules/cjs/loader.js:815:32)
+
+			<= expected output =>
+sed
+edr
+cdf
+aed
+abc
+---------appTest/test4_should_throw_error_for_invalid_option.test----------
+			<= command =>
+(node sort.js -x ./appTest/sample.txt)
+
+			<= actual output =>
+/Users/step4/mydata/Assignments/javascript/programs/jsTools-anujachaitanya/src/performSort.js:1
+<<<<<<< HEAD
+^^
+
+SyntaxError: Unexpected token '<<'
+    at Module._compile (internal/modules/cjs/loader.js:895:18)
+    at Object.Module._extensions..js (internal/modules/cjs/loader.js:995:10)
+    at Module.load (internal/modules/cjs/loader.js:815:32)
+    at Function.Module._load (internal/modules/cjs/loader.js:727:14)
+    at Module.require (internal/modules/cjs/loader.js:852:19)
+    at require (internal/modules/cjs/helpers.js:74:18)
+    at Object.<anonymous> (/Users/step4/mydata/Assignments/javascript/programs/jsTools-anujachaitanya/sort.js:1:25)
+    at Module._compile (internal/modules/cjs/loader.js:959:30)
+    at Object.Module._extensions..js (internal/modules/cjs/loader.js:995:10)
+    at Module.load (internal/modules/cjs/loader.js:815:32)
+
+			<= expected output =>
+option -x: invalid options
+---------appTest/test5_should_sort_according_to_numbers.test----------
+			<= command =>
+(node sort.js -n ./appTest/sample_for_numbers.txt)
+
+			<= actual output =>
+/Users/step4/mydata/Assignments/javascript/programs/jsTools-anujachaitanya/src/performSort.js:1
+<<<<<<< HEAD
+^^
+
+SyntaxError: Unexpected token '<<'
+    at Module._compile (internal/modules/cjs/loader.js:895:18)
+    at Object.Module._extensions..js (internal/modules/cjs/loader.js:995:10)
+    at Module.load (internal/modules/cjs/loader.js:815:32)
+    at Function.Module._load (internal/modules/cjs/loader.js:727:14)
+    at Module.require (internal/modules/cjs/loader.js:852:19)
+    at require (internal/modules/cjs/helpers.js:74:18)
+    at Object.<anonymous> (/Users/step4/mydata/Assignments/javascript/programs/jsTools-anujachaitanya/sort.js:1:25)
+    at Module._compile (internal/modules/cjs/loader.js:959:30)
+    at Object.Module._extensions..js (internal/modules/cjs/loader.js:995:10)
+    at Module.load (internal/modules/cjs/loader.js:815:32)
+
+			<= expected output =>
+1.2
+2
+12
+12
+12
+---------appTest/test6_number_sort_for_strings_and_numbers.test----------
+			<= command =>
+(node sort.js -n ./appTest/sample_for_string_and_number.txt)
+
+			<= actual output =>
+/Users/step4/mydata/Assignments/javascript/programs/jsTools-anujachaitanya/src/performSort.js:1
+<<<<<<< HEAD
+^^
+
+SyntaxError: Unexpected token '<<'
+    at Module._compile (internal/modules/cjs/loader.js:895:18)
+    at Object.Module._extensions..js (internal/modules/cjs/loader.js:995:10)
+    at Module.load (internal/modules/cjs/loader.js:815:32)
+    at Function.Module._load (internal/modules/cjs/loader.js:727:14)
+    at Module.require (internal/modules/cjs/loader.js:852:19)
+    at require (internal/modules/cjs/helpers.js:74:18)
+    at Object.<anonymous> (/Users/step4/mydata/Assignments/javascript/programs/jsTools-anujachaitanya/sort.js:1:25)
+    at Module._compile (internal/modules/cjs/loader.js:959:30)
+    at Object.Module._extensions..js (internal/modules/cjs/loader.js:995:10)
+    at Module.load (internal/modules/cjs/loader.js:815:32)
+
+			<= expected output =>
+a
+1
+2
+3
+---------appTest/test7_sort_for_-r_and_-n.test----------
+			<= command =>
+(node sort.js -r -n ./appTest/sample_for_numbers.txt)
+
+			<= actual output =>
+/Users/step4/mydata/Assignments/javascript/programs/jsTools-anujachaitanya/src/performSort.js:1
+<<<<<<< HEAD
+^^
+
+SyntaxError: Unexpected token '<<'
+    at Module._compile (internal/modules/cjs/loader.js:895:18)
+    at Object.Module._extensions..js (internal/modules/cjs/loader.js:995:10)
+    at Module.load (internal/modules/cjs/loader.js:815:32)
+    at Function.Module._load (internal/modules/cjs/loader.js:727:14)
+    at Module.require (internal/modules/cjs/loader.js:852:19)
+    at require (internal/modules/cjs/helpers.js:74:18)
+    at Object.<anonymous> (/Users/step4/mydata/Assignments/javascript/programs/jsTools-anujachaitanya/sort.js:1:25)
+    at Module._compile (internal/modules/cjs/loader.js:959:30)
+    at Object.Module._extensions..js (internal/modules/cjs/loader.js:995:10)
+    at Module.load (internal/modules/cjs/loader.js:815:32)
+
+			<= expected output =>
+12
+12
+12
+2
+1.2

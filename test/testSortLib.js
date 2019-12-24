@@ -10,6 +10,9 @@ const {
   parseUserArgs,
   generateErrorMsg,
   areOptionsValid
+<<<<<<< HEAD
+>>>>>>> parent of fffe868... made async readFile and modified perform sort
+=======
 >>>>>>> parent of fffe868... made async readFile and modified perform sort
 } = require("../src/sortLib");
 const fs = require("fs");

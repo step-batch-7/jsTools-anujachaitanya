@@ -138,6 +138,9 @@ describe("performSort", () => {
     const fsModule = { reader, exists, encoding: "utf8" };
     const actual = performSort(["-n", "sample.txt"], fsModule);
     const expected = "0\n1\n2\n3";
+<<<<<<< HEAD
+>>>>>>> parent of fffe868... made async readFile and modified perform sort
+=======
 >>>>>>> parent of fffe868... made async readFile and modified perform sort
     assert.strictEqual(actual, expected);
   });
