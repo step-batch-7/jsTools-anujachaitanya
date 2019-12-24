@@ -1,6 +1,10 @@
 const assert = require("chai").assert;
-const { sort, parseUserArgs, getInvalidOption } = require("../src/sortLib");
-const fs = require("fs");
+const {
+  sort,
+  parseUserArgs,
+  getInvalidOption,
+  loadContents
+} = require("../src/sortLib");
 
 describe("sort", () => {
   it("should reverse sort given strings", () => {
@@ -52,5 +56,43 @@ describe("getInvalidOption", () => {
   });
   it("should return undefined for options -n", () => {
     assert.isUndefined(getInvalidOption(["-n"]));
+  });
+});
+
+describe("loadContents", () => {
+  it("should return fileContents splitted with new lines", () => {
+    const reader = function(filePath) {
+      assert.strictEqual(filePath, "sample.txt");
+      return "a\nb\nc\nd";
+    };
+    const exists = function(filePath) {
+      assert.strictEqual(filePath, "sample.txt");
+      return true;
+    };
+    const fsModule = { reader, exists, encoding: "utf8" };
+    const actual = loadContents(
+      "sample.txt",
+      fsModule.reader,
+      fsModule.exists,
+      fsModule.encoding
+    );
+    const expected = ["a", "b", "c", "d"];
+    assert.deepStrictEqual(actual, expected);
+  });
+  it("should return error object if given file is not present", () => {
+    const exists = function(filePath) {
+      assert.strictEqual(filePath, "sample.txt");
+      return false;
+    };
+    const fsModule = { reader: "", exists, encoding: "utf8" };
+
+    assert.throws(() =>
+      loadContents(
+        "sample.txt",
+        fsModule.reader,
+        fsModule.exists,
+        fsModule.encoding
+      )
+    );
   });
 });
