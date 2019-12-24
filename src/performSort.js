@@ -1,18 +1,28 @@
-const {
-  parseUserArgs,
-  loadContents,
-  sort,
-  generateErrorMsg
-} = require("./sortLib");
+const { parseUserArgs, sort } = require("./sortLib");
 
-const performSort = function(cmdLineArgs, fsTools) {
-  const userOptions = parseUserArgs(cmdLineArgs);
-  const contents = loadContents(userOptions.path, fsTools);
-  contents.options = userOptions.options;
-  if (contents.error) {
-    generateErrorMsg(contents);
+const performSortForFile = function(streams, error, data) {
+  if (error) {
+    return streams.error(`sort: No such a file or directory`);
   }
-  return sort(contents).join("\n");
+  this.lines = data.split("\n");
+  const sortedLines = sort(this).join("\n");
+  return streams.logger(sortedLines);
+};
+
+const performSort = function(cmdLineArgs, fsTools, streams) {
+  const userOptions = parseUserArgs(cmdLineArgs);
+  if (userOptions.invalidOption) {
+    return streams.error(
+      `Option ${userOptions.invalidOption}: invalid options`
+    );
+  }
+  if (userOptions.path) {
+    fsTools.readerAsync(
+      userOptions.path,
+      "utf8",
+      performSortForFile.bind(userOptions, streams)
+    );
+  }
 };
 
 module.exports = { performSort };

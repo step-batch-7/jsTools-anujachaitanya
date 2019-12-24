@@ -2,7 +2,13 @@ const fs = require("fs");
 const fsTools = {
   reader: fs.readFileSync,
   encoding: "utf8",
-  exists: fs.existsSync
+  exists: fs.existsSync,
+  readerAsync: fs.readFile
 };
 
-module.exports = { fsTools };
+const streams = {
+  error: console.error,
+  logger: console.log
+};
+
+module.exports = { streams, fsTools };
