@@ -1,22 +1,14 @@
 const { numericSort } = require("./sortTypes");
 
-const sort = function(lines) {
-  let sortedLines = lines.sort();
-  return sortedLines;
+const sortLines = function(lines) {
+  let sortedLines = lines.split("\n").sort();
+  return sortedLines.join("\n");
 };
 
 const getInvalidOption = function(options) {
   const validOptions = ["-r", "-n"];
   invalidOptions = options.filter(x => !validOptions.includes(x));
   return invalidOptions[0];
-};
-
-const loadContents = function(path, reader, exists, encoding) {
-  if (!exists(path)) {
-    throw new Error("No such a file or directory");
-  }
-  const lines = reader(path, encoding);
-  return lines.split("\n");
 };
 
 const parseUserArgs = function(userArgs) {
@@ -33,8 +25,7 @@ const parseUserArgs = function(userArgs) {
 };
 
 module.exports = {
-  sort,
+  sortLines,
   getInvalidOption,
-  parseUserArgs,
-  loadContents
+  parseUserArgs
 };

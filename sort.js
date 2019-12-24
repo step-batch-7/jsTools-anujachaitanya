@@ -1,15 +1,12 @@
-const { performSort } = require("./src/performSort");
+const { sort } = require("./src/executeSort");
 const cmdLineArgs = process.argv.slice(2);
 const fs = require("fs");
 const main = function() {
   const fsTools = {
-    reader: fs.readFileSync,
-    exists: fs.existsSync,
+    reader: fs.readFile,
     encoding: "utf8"
   };
-  const sortContents = performSort(cmdLineArgs, fsTools);
-  sortContents.lines && console.log(sortContents.lines);
-  sortContents.error && console.error(sortContents.error);
+  sort(cmdLineArgs, fsTools, console.log, console.error);
 };
 
 main();
