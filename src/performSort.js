@@ -16,7 +16,7 @@ const performSort = function(cmdLineArgs, fsTools, streams) {
     );
   }
   if (userOptions.path) {
-    return fsTools.readerAsync(userOptions.path, "utf8", (error, data) => {
+    return fsTools.reader(userOptions.path, fsTools.encoding, (error, data) => {
       if (error) {
         return streams.error(`sort: No such a file or directory`);
       }

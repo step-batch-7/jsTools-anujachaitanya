@@ -1,6 +1,6 @@
 const fs = require("fs");
 const fsTools = {
-  reader: fs.readFileSync,
+  reader: fs.readFile,
   encoding: "utf8",
   exists: fs.existsSync,
   readerAsync: fs.readFile
