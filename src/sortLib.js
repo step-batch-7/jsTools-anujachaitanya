@@ -7,49 +7,27 @@ const sortByOptions = function(options, lines) {
   return sortedLines;
 };
 
-const loadContents = function(filePath, fsModule) {
-  if (fsModule.exists(filePath)) {
-    const contents = fsModule.reader(filePath, fsModule.encoding);
-    const lines = contents.split("\n");
-    return { lines: lines };
-  }
-  return { error: "No such a file or directory", sub: "sort" };
-};
-
-const areOptionsValid = function(options) {
+const getInvalidOption = function(options) {
   const validOptions = ["-r", "-n"];
-  options.forEach(x => {
-    !validOptions.includes(x) &&
-      generateErrorMsg({ error: "invalid options", sub: `option ${x}` });
-  });
-  return true;
+  invalidOptions = options.filter(x => !validOptions.includes(x));
+  return invalidOptions[0];
 };
 
 const parseUserArgs = function(userArgs) {
-  let parseUserArgs = { path: undefined, options: [] };
+  let parsedUserArgs = { path: undefined, options: [] };
   userArgs.map(x => {
     let option = x.split("");
-    option[0] == "-" ? parseUserArgs.options.push(x) : (parseUserArgs.path = x);
+    option[0] == "-"
+      ? parsedUserArgs.options.push(x)
+      : (parsedUserArgs.path = x);
   });
-  areOptionsValid(parseUserArgs.options);
-  return parseUserArgs;
-};
-
-const generateErrorMsg = function(error) {
-  throw new Error(`${error.sub}: ${error.error}`);
+  const option = getInvalidOption(parsedUserArgs.options);
+  parsedUserArgs.invalidOption = option;
+  return parsedUserArgs;
 };
 
 module.exports = {
-<<<<<<< HEAD
   sortByOptions,
-=======
-  sort,
-  loadContents,
-<<<<<<< HEAD
->>>>>>> parent of fffe868... made async readFile and modified perform sort
-=======
->>>>>>> parent of fffe868... made async readFile and modified perform sort
-  parseUserArgs,
-  generateErrorMsg,
-  areOptionsValid
+  getInvalidOption,
+  parseUserArgs
 };

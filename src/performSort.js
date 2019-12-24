@@ -1,8 +1,6 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
 const { parseUserArgs, sortByOptions } = require("./sortLib");
 
-const sortLines = function(streams, userOptions, data) {
+const sortForFile = function(streams, userOptions, data) {
   let sortedLines = data.split("\n").sort();
   if (userOptions.options.length != 0) {
     sortedLines = sortByOptions(userOptions.options, sortedLines);
@@ -22,39 +20,9 @@ const performSort = function(cmdLineArgs, fsTools, streams) {
       if (error) {
         return streams.error(`sort: No such a file or directory`);
       }
-      return sortLines(streams, userOptions, data);
+      return sortForFile(streams, userOptions, data);
     });
-=======
-const {
-  parseUserArgs,
-  loadContents,
-  sort,
-  generateErrorMsg
-} = require("./sortLib");
-
-const performSort = function(cmdLineArgs, fsTools) {
-  const userOptions = parseUserArgs(cmdLineArgs);
-=======
-const {
-  parseUserArgs,
-  loadContents,
-  sort,
-  generateErrorMsg
-} = require("./sortLib");
-
-const performSort = function(cmdLineArgs, fsTools) {
-  const userOptions = parseUserArgs(cmdLineArgs);
->>>>>>> parent of fffe868... made async readFile and modified perform sort
-  const contents = loadContents(userOptions.path, fsTools);
-  contents.options = userOptions.options;
-  if (contents.error) {
-    generateErrorMsg(contents);
-<<<<<<< HEAD
->>>>>>> parent of fffe868... made async readFile and modified perform sort
-=======
->>>>>>> parent of fffe868... made async readFile and modified perform sort
   }
-  return sort(contents).join("\n");
 };
 
-module.exports = { performSort, sortLines };
+module.exports = { performSort, sortForFile };

@@ -5,4 +5,9 @@ const fsTools = {
   exists: fs.existsSync
 };
 
-module.exports = { fsTools };
+const streams = {
+  error: console.error,
+  logger: console.log
+};
+
+module.exports = { fsTools, streams };
