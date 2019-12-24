@@ -1,12 +1,11 @@
-const { parseUserArgs, sort } = require("./sortLib");
+const { parseUserArgs, sortByOptions } = require("./sortLib");
 
-const performSortForFile = function(streams, userOptions, error, data) {
-  if (error) {
-    return streams.error(`sort: No such a file or directory`);
+const sortLines = function(streams, userOptions, data) {
+  let sortedLines = data.split("\n").sort();
+  if (userOptions.options.length != 0) {
+    sortedLines = sortByOptions(userOptions.options, sortedLines);
   }
-  userOptions.lines = data.split("\n");
-  const sortedLines = sort(userOptions).join("\n");
-  return streams.logger(sortedLines);
+  return streams.logger(sortedLines.join("\n"));
 };
 
 const performSort = function(cmdLineArgs, fsTools, streams) {
@@ -17,12 +16,13 @@ const performSort = function(cmdLineArgs, fsTools, streams) {
     );
   }
   if (userOptions.path) {
-    return fsTools.readerAsync(
-      userOptions.path,
-      "utf8",
-      performSortForFile.bind(null, streams, userOptions)
-    );
+    return fsTools.readerAsync(userOptions.path, "utf8", (error, data) => {
+      if (error) {
+        return streams.error(`sort: No such a file or directory`);
+      }
+      return sortLines(streams, userOptions, data);
+    });
   }
 };
 
-module.exports = { performSort, performSortForFile };
+module.exports = { performSort, sortLines };
