@@ -7,7 +7,7 @@ describe("sortForFile", () => {
       return data;
     };
     const streams = { error: {}, logger };
-    const actual = sortForFile(streams, { options: [] }, "a\nd\nc");
+    const actual = sortForFile(streams, { options: [] }, undefined, "a\nd\nc");
     const expected = "a\nc\nd";
     assert.strictEqual(actual, expected);
   });
@@ -17,7 +17,12 @@ describe("sortForFile", () => {
       return data;
     };
     const streams = { error: {}, logger };
-    const actual = sortForFile(streams, { options: ["-n"] }, "1\n5\n3");
+    const actual = sortForFile(
+      streams,
+      { options: ["-n"] },
+      undefined,
+      "1\n5\n3"
+    );
     const expected = "1\n3\n5";
     assert.strictEqual(actual, expected);
   });
@@ -27,7 +32,12 @@ describe("sortForFile", () => {
       return data;
     };
     const streams = { error: {}, logger };
-    const actual = sortForFile(streams, { options: ["-r"] }, "a\nb\nc");
+    const actual = sortForFile(
+      streams,
+      { options: ["-r"] },
+      undefined,
+      "a\nb\nc"
+    );
     const expected = "c\nb\na";
     assert.strictEqual(actual, expected);
   });
@@ -37,7 +47,12 @@ describe("sortForFile", () => {
       return data;
     };
     const streams = { error: {}, logger };
-    const actual = sortForFile(streams, { options: ["-r", "-n"] }, "1\n5\n3");
+    const actual = sortForFile(
+      streams,
+      { options: ["-r", "-n"] },
+      undefined,
+      "1\n5\n3"
+    );
     const expected = "5\n3\n1";
     assert.strictEqual(actual, expected);
   });
@@ -54,23 +69,20 @@ describe("performSort", () => {
     assert.strictEqual(actual, expected);
   });
 
-  it("should return error if callback receives error", () => {
+  it("should readFile is path is given", () => {
     const error = function(error) {
       return error;
     };
     const streams = { error };
-    const foo = function(error, data) {
-      return;
-    };
-    const reader = function(path, encoding, foo) {
+
+    const reader = function(path, encoding) {
       assert.strictEqual(path, "sample.txt");
       assert.strictEqual(encoding, "utf8");
-      foo("abc");
+      return true;
     };
-    reader.bind(null, foo);
 
     fsTools = { reader, encoding: "utf8" };
     const actual = performSort(["sample.txt"], fsTools, streams);
-    const expected = "sort: No such a file or directory";
+    assert.ok(actual);
   });
 });
