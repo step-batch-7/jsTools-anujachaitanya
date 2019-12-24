@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 const { parseUserArgs, sortByOptions } = require("./sortLib");
 
 const sortLines = function(streams, userOptions, data) {
@@ -22,7 +23,23 @@ const performSort = function(cmdLineArgs, fsTools, streams) {
       }
       return sortLines(streams, userOptions, data);
     });
+=======
+const {
+  parseUserArgs,
+  loadContents,
+  sort,
+  generateErrorMsg
+} = require("./sortLib");
+
+const performSort = function(cmdLineArgs, fsTools) {
+  const userOptions = parseUserArgs(cmdLineArgs);
+  const contents = loadContents(userOptions.path, fsTools);
+  contents.options = userOptions.options;
+  if (contents.error) {
+    generateErrorMsg(contents);
+>>>>>>> parent of fffe868... made async readFile and modified perform sort
   }
+  return sort(contents).join("\n");
 };
 
 module.exports = { performSort, sortLines };
