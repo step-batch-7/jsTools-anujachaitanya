@@ -1,39 +1,35 @@
 const assert = require("chai").assert;
-const {
-  sortByOptions,
-  parseUserArgs,
-  getInvalidOption
-} = require("../src/sortLib");
+const { sort, parseUserArgs, getInvalidOption } = require("../src/sortLib");
 const fs = require("fs");
 
 describe("sort", () => {
   it("should reverse sort if -r option is given", () => {
     const expected = ["e", "d", "c", "a"];
-    const actual = sortByOptions(["-r"], ["a", "c", "d", "e"]);
+    const actual = sort(["-r"], ["a", "c", "d", "e"]);
     assert.deepStrictEqual(actual, expected);
   });
 
   it("should number sort if -n option is given", () => {
     const expected = [1, 2, 3, 4];
-    const actual = sortByOptions(["-n"], [1, 2, 4, 3]);
+    const actual = sort(["-n"], [1, 2, 4, 3]);
     assert.deepStrictEqual(actual, expected);
   });
 
   it("should sort if both -r and -n options are given", () => {
     const expected = [4, 3, 2, 1];
-    const actual = sortByOptions(["-n", "-r"], [1, 2, 4, 3]);
+    const actual = sort(["-n", "-r"], [1, 2, 4, 3]);
     assert.deepStrictEqual(actual, expected);
   });
 
   it("should sort strings and numbers together if -n and -r option is given", () => {
     const expected = [4, 3, 1, "a"];
-    const actual = sortByOptions(["-n", "-r"], [1, 4, 3, "a"]);
+    const actual = sort(["-n", "-r"], [1, 4, 3, "a"]);
     assert.deepStrictEqual(actual, expected);
   });
 
   it("should number sort if -n option is given", () => {
     const expected = [1, 2, 3, 4];
-    const actual = sortByOptions(["-n"], [4, 3, 2, 1]);
+    const actual = sort(["-n"], [4, 3, 2, 1]);
     assert.deepStrictEqual(actual, expected);
   });
 });

@@ -7,7 +7,8 @@ const fsTools = {
 
 const streams = {
   error: console.error,
-  logger: console.log
+  logger: console.log,
+  inputStream: process.stdin
 };
 
 module.exports = { fsTools, streams };

@@ -1,7 +1,7 @@
 const { numericSort } = require("./sortTypes");
 
-const sortByOptions = function(options, lines) {
-  let sortedLines = lines;
+const sort = function(options, lines) {
+  let sortedLines = lines.sort();
   if (options.includes("-n")) sortedLines = numericSort(sortedLines);
   options.includes("-r") && sortedLines.reverse();
   return sortedLines;
@@ -27,7 +27,7 @@ const parseUserArgs = function(userArgs) {
 };
 
 module.exports = {
-  sortByOptions,
+  sort,
   getInvalidOption,
   parseUserArgs
 };
