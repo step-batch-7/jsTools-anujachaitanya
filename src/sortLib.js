@@ -11,7 +11,7 @@ const sortLines = function(options, lines) {
 
 const getInvalidOption = function(options) {
   const validOptions = ["-r", "-n"];
-  invalidOptions = options.filter(x => !validOptions.includes(x));
+  const invalidOptions = options.filter(x => !validOptions.includes(x));
   return invalidOptions[0];
 };
 

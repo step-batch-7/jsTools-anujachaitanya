@@ -1,8 +1,13 @@
 const { parseUserArgs, sortLines } = require("./sortLib");
 
 const sortForFile = function(userOptions, error, data) {
+  const errors = {
+    ENOENT: `No such a file or directory`,
+    EISDIR: `Is a directory`,
+    IOError: `Permission denied`
+  };
   if (error) {
-    this.errorStream(`sort: No such a file or directory`);
+    this.errorStream(`sort: ${errors[error.code]}`);
     return;
   }
   this.outputStream(sortLines(userOptions.options, data));

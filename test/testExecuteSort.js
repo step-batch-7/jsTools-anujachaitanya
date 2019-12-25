@@ -26,6 +26,32 @@ describe("sortForFile", () => {
       assert.strictEqual(error, "sort: No such a file or directory");
     };
     const streams = { errorStream };
-    sortForFile.call(streams, { options: [] }, "error", undefined);
+    sortForFile.call(streams, { options: [] }, { code: "ENOENT" });
+  });
+
+  it("should return error if file is directory", () => {
+    const errorStream = function(error) {
+      assert.strictEqual(error, "sort: Is a directory");
+    };
+    const streams = { errorStream };
+    sortForFile.call(streams, { options: [] }, { code: "EISDIR" });
+  });
+
+  it("should return sorted lines to output stream", () => {
+    const outputStream = function(data) {
+      assert.strictEqual(data, "a\nb\nc");
+    };
+
+    const streams = { outputStream };
+    sortForFile.call(streams, { options: [] }, undefined, "c\na\nb");
+  });
+
+  it("should return sorted lines according to options", () => {
+    const outputStream = function(data) {
+      assert.strictEqual(data, "c\nb\na");
+    };
+
+    const streams = { outputStream };
+    sortForFile.call(streams, { options: ["-r"] }, undefined, "c\na\nb");
   });
 });
