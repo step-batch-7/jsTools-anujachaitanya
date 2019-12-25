@@ -10,6 +10,11 @@ const sortForFile = function(userOptions, error, data) {
 
 const sort = function(cmdLineArgs, fsTools, outputStream, errorStream) {
   const userOptions = parseUserArgs(cmdLineArgs);
+  if (userOptions.invalidOption) {
+    errorStream(`sort: invalid option -${userOptions.invalidOption}`);
+    return;
+  }
+
   if (userOptions.path) {
     fsTools.reader(
       userOptions.path,

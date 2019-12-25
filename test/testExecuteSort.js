@@ -11,6 +11,13 @@ describe("sort", () => {
     const fsTools = { reader, encoding: "utf8" };
     sort(["sample.txt"], fsTools);
   });
+
+  it("should return error for invalid option", () => {
+    const errorStream = function(error) {
+      assert.strictEqual(error, "sort: invalid option --x");
+    };
+    sort(["sample.txt", "-x"], {}, {}, errorStream);
+  });
 });
 
 describe("sortForFile", () => {
@@ -19,6 +26,6 @@ describe("sortForFile", () => {
       assert.strictEqual(error, "sort: No such a file or directory");
     };
     const streams = { errorStream };
-    sortForFile.call(streams, { options: [] }, "ENOENT", undefined);
+    sortForFile.call(streams, { options: [] }, "error", undefined);
   });
 });
