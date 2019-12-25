@@ -4,7 +4,7 @@ const sortForFile = function(userOptions, error, data) {
   const errors = {
     ENOENT: `No such a file or directory`,
     EISDIR: `Is a directory`,
-    IOError: `Permission denied`
+    EACCES: `Permission denied`
   };
   if (error) {
     this.errorStream(`sort: ${errors[error.code]}`);
