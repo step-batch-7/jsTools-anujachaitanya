@@ -1,7 +1,11 @@
 const { numericSort } = require("./sortTypes");
 
-const sortLines = function(lines) {
+const sortLines = function(options, lines) {
   let sortedLines = lines.split("\n").sort();
+  if (options.includes("-n")) {
+    sortedLines = numericSort(sortedLines);
+  }
+  options.includes("-r") && sortedLines.reverse();
   return sortedLines.join("\n");
 };
 

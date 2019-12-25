@@ -1,11 +1,11 @@
 const { parseUserArgs, sortLines } = require("./sortLib");
 
-const sortForFile = function(error, data) {
+const sortForFile = function(userOptions, error, data) {
   if (error) {
     this.errorStream(`sort: No such a file or directory`);
     return;
   }
-  this.outputStream(sortLines(data));
+  this.outputStream(sortLines(userOptions.options, data));
 };
 
 const sort = function(cmdLineArgs, fsTools, outputStream, errorStream) {
@@ -14,7 +14,7 @@ const sort = function(cmdLineArgs, fsTools, outputStream, errorStream) {
     fsTools.reader(
       userOptions.path,
       fsTools.encoding,
-      sortForFile.bind({ outputStream, errorStream })
+      sortForFile.bind({ outputStream, errorStream }, userOptions)
     );
   }
 };

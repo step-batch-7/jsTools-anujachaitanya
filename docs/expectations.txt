@@ -9,7 +9,7 @@ version :
 0.3
 (3). node sort.js -r sample.txt
 
-0.2
+0.4
 (4). node sort.js -r
 (5). node sort.js -n sample.txt
 (6). node sort.js -n

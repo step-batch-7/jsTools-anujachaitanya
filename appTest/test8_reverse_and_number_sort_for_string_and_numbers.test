@@ -1,0 +1,5 @@
+(node sort.js -r -n ./appTest/sample_for_string_and_number.txt)
+3
+2
+1
+a

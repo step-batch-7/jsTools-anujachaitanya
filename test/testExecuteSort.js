@@ -12,3 +12,13 @@ describe("sort", () => {
     sort(["sample.txt"], fsTools);
   });
 });
+
+describe("sortForFile", () => {
+  it("should return error if error is given", () => {
+    const errorStream = function(error) {
+      assert.strictEqual(error, "sort: No such a file or directory");
+    };
+    const streams = { errorStream };
+    sortForFile.call(streams, { options: [] }, "ENOENT", undefined);
+  });
+});
