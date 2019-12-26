@@ -1,9 +1,5 @@
 const assert = require("chai").assert;
-const {
-  parseUserArgs,
-  getInvalidOption,
-  separateUserArgs
-} = require("../src/optionParsing");
+const { parseUserArgs, getInvalidOption } = require("../src/optionParsing");
 
 describe("parseUserArgs", () => {
   it("should return path for given arguments", () => {
@@ -48,25 +44,5 @@ describe("getInvalidOption", () => {
   });
   it("should return undefined for options -n", () => {
     assert.isUndefined(getInvalidOption(["-n"]));
-  });
-});
-
-describe("separateUserArgs", () => {
-  it("should return empty array if options are not given", () => {
-    const expected = { path: "sample.txt", options: [] };
-    const actual = separateUserArgs(["sample.txt"]);
-    assert.deepStrictEqual(actual, expected);
-  });
-
-  it("should return path undefined if no path is given", () => {
-    const expected = { path: undefined, options: [] };
-    const actual = separateUserArgs([]);
-    assert.deepStrictEqual(actual, expected);
-  });
-
-  it("should return options if only options are given", () => {
-    const expected = { path: undefined, options: ["-r", "-n"] };
-    const actual = separateUserArgs(["-r", "-n"]);
-    assert.deepStrictEqual(actual, expected);
   });
 });

@@ -13,39 +13,39 @@ describe("sort", () => {
   });
 
   it("should return error for invalid option", () => {
-    const callback = function(error, contents) {
+    const displayResult = function(error, contents) {
       assert.strictEqual(error, `sort: invalid option --x\n${USAGE}`);
       assert.strictEqual(contents, "");
     };
-    sort(["sample.txt", "-x"], {}, callback);
+    sort(["sample.txt", "-x"], {}, displayResult);
   });
 });
 
 describe("sortForFile", () => {
   it("should return error if error is given", () => {
-    const callback = function(error, contents) {
+    const displayResult = function(error, contents) {
       assert.strictEqual(error, "sort: No such file or directory");
       assert.strictEqual(contents, "");
     };
 
-    sortForFile.call({ callback }, { options: [] }, { code: "ENOENT" });
+    sortForFile.call({ displayResult }, { options: [] }, { code: "ENOENT" });
   });
 
   it("should return sorted lines to output stream", () => {
-    const callback = function(error, contents) {
+    const displayResult = function(error, contents) {
       assert.strictEqual(error, "");
       assert.strictEqual(contents, "a\nb\nc");
     };
 
-    sortForFile.call({ callback }, { options: [] }, undefined, "c\na\nb");
+    sortForFile.call({ displayResult, options: [] }, undefined, "c\na\nb");
   });
 
   it("should return sorted lines according to options", () => {
-    const callback = function(error, contents) {
+    const displayResult = function(error, contents) {
       assert.strictEqual(error, "");
       assert.strictEqual(contents, "c\nb\na");
     };
 
-    sortForFile.call({ callback }, { options: ["-r"] }, undefined, "c\na\nb");
+    sortForFile.call({ displayResult, options: ["-r"] }, undefined, "c\na\nb");
   });
 });

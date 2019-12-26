@@ -6,25 +6,29 @@ const getInvalidOption = function(options) {
   return invalidOptions[0];
 };
 
-const separateUserArgs = function(userArgs) {
-  let parsedUserArgs = { path: undefined, options: [] };
-  userArgs.forEach(argv => {
-    argv.startsWith("-")
-      ? parsedUserArgs.options.push(argv)
-      : (parsedUserArgs.path = argv);
-  });
-  return parsedUserArgs;
+const extractOptions = userArgs => {
+  const options = userArgs.filter(argv => argv.startsWith("-"));
+  return options;
 };
 
-const parseUserArgs = function(userArgs) {
-  const parsedUserArgs = separateUserArgs(userArgs);
-  const invalidOption = getInvalidOption(parsedUserArgs.options);
-  parsedUserArgs.invalidOption = invalidOption;
+const extractPath = (options, userArgs) => {
+  const path = userArgs.filter(userArg => !options.includes(userArg))[0];
+  return path;
+};
+
+const parseUserArgs = function(cmdLineArgs) {
+  let parsedUserArgs = {
+    path: undefined,
+    options: [],
+    invalidOption: undefined
+  };
+  parsedUserArgs.options = extractOptions(cmdLineArgs);
+  parsedUserArgs.path = extractPath(parsedUserArgs.options, cmdLineArgs);
+  parsedUserArgs.invalidOption = getInvalidOption(parsedUserArgs.options);
   return parsedUserArgs;
 };
 
 module.exports = {
   getInvalidOption,
-  parseUserArgs,
-  separateUserArgs
+  parseUserArgs
 };
