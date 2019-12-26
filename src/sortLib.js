@@ -11,20 +11,21 @@ const sortLines = function(options, lines) {
 
 const getInvalidOption = function(options) {
   const validOptions = ["-r", "-n"];
-  const invalidOptions = options.filter(x => !validOptions.includes(x));
+  const invalidOptions = options.filter(
+    option => !validOptions.includes(option)
+  );
   return invalidOptions[0];
 };
 
 const parseUserArgs = function(userArgs) {
   let parsedUserArgs = { path: undefined, options: [] };
-  userArgs.map(x => {
-    let option = x.split("");
-    option[0] == "-"
-      ? parsedUserArgs.options.push(x)
-      : (parsedUserArgs.path = x);
+  userArgs.map(argv => {
+    argv.startsWith("-")
+      ? parsedUserArgs.options.push(argv)
+      : (parsedUserArgs.path = argv);
   });
-  const option = getInvalidOption(parsedUserArgs.options);
-  parsedUserArgs.invalidOption = option;
+  const invalidOption = getInvalidOption(parsedUserArgs.options);
+  parsedUserArgs.invalidOption = invalidOption;
   return parsedUserArgs;
 };
 

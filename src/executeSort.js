@@ -26,7 +26,9 @@ const sort = function(cmdLineArgs, fsTools, outputStream, errorStream) {
       fsTools.encoding,
       sortForFile.bind({ outputStream, errorStream }, userOptions)
     );
+    return;
   }
+  return;
 };
 
 module.exports = { sort, sortForFile };
