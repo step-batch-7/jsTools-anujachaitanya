@@ -1,4 +1,5 @@
 const { parseUserArgs, sortLines } = require("./sortLib");
+const EMPTY_STRING = "";
 
 const sortForFile = function(userOptions, error, data) {
   const errors = {
@@ -7,24 +8,28 @@ const sortForFile = function(userOptions, error, data) {
     EACCES: `Permission denied`
   };
   if (error) {
-    this.errorStream(`sort: ${errors[error.code]}`);
+    this.callback(`sort: ${errors[error.code]}`, EMPTY_STRING);
     return;
   }
-  this.outputStream(sortLines(userOptions.options, data));
+  this.callback(EMPTY_STRING, sortLines(userOptions.options, data));
+  return;
 };
 
-const sort = function(cmdLineArgs, fsTools, outputStream, errorStream) {
+const sort = function(cmdLineArgs, reader, callback) {
   const userOptions = parseUserArgs(cmdLineArgs);
   if (userOptions.invalidOption) {
-    errorStream(`sort: invalid option -${userOptions.invalidOption}`);
+    callback(
+      `sort: invalid option -${userOptions.invalidOption}`,
+      EMPTY_STRING
+    );
     return;
   }
 
   if (userOptions.path) {
-    fsTools.reader(
+    reader(
       userOptions.path,
-      fsTools.encoding,
-      sortForFile.bind({ outputStream, errorStream }, userOptions)
+      "utf8",
+      sortForFile.bind({ callback }, userOptions)
     );
     return;
   }

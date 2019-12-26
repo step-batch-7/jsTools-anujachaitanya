@@ -7,51 +7,52 @@ describe("sort", () => {
       assert.strictEqual(path, "sample.txt");
       assert.strictEqual(encoding, "utf8");
     };
-
-    const fsTools = { reader, encoding: "utf8" };
-    sort(["sample.txt"], fsTools);
+    sort(["sample.txt"], reader);
   });
 
   it("should return error for invalid option", () => {
-    const errorStream = function(error) {
+    const callback = function(error, contents) {
       assert.strictEqual(error, "sort: invalid option --x");
+      assert.strictEqual(contents, "");
     };
-    sort(["sample.txt", "-x"], {}, {}, errorStream);
+    sort(["sample.txt", "-x"], {}, callback);
   });
 });
 
 describe("sortForFile", () => {
   it("should return error if error is given", () => {
-    const errorStream = function(error) {
+    const callback = function(error, contents) {
       assert.strictEqual(error, "sort: No such a file or directory");
+      assert.strictEqual(contents, "");
     };
-    const streams = { errorStream };
-    sortForFile.call(streams, { options: [] }, { code: "ENOENT" });
+
+    sortForFile.call({ callback }, { options: [] }, { code: "ENOENT" });
   });
 
   it("should return error if file is directory", () => {
-    const errorStream = function(error) {
+    const callback = function(error, contents) {
       assert.strictEqual(error, "sort: Is a directory");
+      assert.strictEqual(contents, "");
     };
-    const streams = { errorStream };
-    sortForFile.call(streams, { options: [] }, { code: "EISDIR" });
+
+    sortForFile.call({ callback }, { options: [] }, { code: "EISDIR" });
   });
 
   it("should return sorted lines to output stream", () => {
-    const outputStream = function(data) {
-      assert.strictEqual(data, "a\nb\nc");
+    const callback = function(error, contents) {
+      assert.strictEqual(error, "");
+      assert.strictEqual(contents, "a\nb\nc");
     };
 
-    const streams = { outputStream };
-    sortForFile.call(streams, { options: [] }, undefined, "c\na\nb");
+    sortForFile.call({ callback }, { options: [] }, undefined, "c\na\nb");
   });
 
   it("should return sorted lines according to options", () => {
-    const outputStream = function(data) {
-      assert.strictEqual(data, "c\nb\na");
+    const callback = function(error, contents) {
+      assert.strictEqual(error, "");
+      assert.strictEqual(contents, "c\nb\na");
     };
 
-    const streams = { outputStream };
-    sortForFile.call(streams, { options: ["-r"] }, undefined, "c\na\nb");
+    sortForFile.call({ callback }, { options: ["-r"] }, undefined, "c\na\nb");
   });
 });
