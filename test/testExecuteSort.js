@@ -24,20 +24,11 @@ describe("sort", () => {
 describe("sortForFile", () => {
   it("should return error if error is given", () => {
     const callback = function(error, contents) {
-      assert.strictEqual(error, "sort: No such a file or directory");
+      assert.strictEqual(error, "sort: No such file or directory");
       assert.strictEqual(contents, "");
     };
 
     sortForFile.call({ callback }, { options: [] }, { code: "ENOENT" });
-  });
-
-  it("should return error if file is directory", () => {
-    const callback = function(error, contents) {
-      assert.strictEqual(error, "sort: Is a directory");
-      assert.strictEqual(contents, "");
-    };
-
-    sortForFile.call({ callback }, { options: [] }, { code: "EISDIR" });
   });
 
   it("should return sorted lines to output stream", () => {

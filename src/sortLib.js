@@ -1,5 +1,3 @@
-const { numericSort } = require("./sortTypes");
-
 const sortLines = function(options, lines) {
   let sortedLines = lines.split("\n").sort();
   if (options.includes("-n")) {
@@ -9,28 +7,13 @@ const sortLines = function(options, lines) {
   return sortedLines.join("\n");
 };
 
-const getInvalidOption = function(options) {
-  const validOptions = ["-r", "-n"];
-  const invalidOptions = options.filter(
-    option => !validOptions.includes(option)
-  );
-  return invalidOptions[0];
-};
-
-const parseUserArgs = function(userArgs) {
-  let parsedUserArgs = { path: undefined, options: [] };
-  userArgs.map(argv => {
-    argv.startsWith("-")
-      ? parsedUserArgs.options.push(argv)
-      : (parsedUserArgs.path = argv);
+const numericSort = function(lines) {
+  const numericLines = lines.filter(line => {
+    const firstField = line.split("")[0];
+    return Number.isInteger(+firstField);
   });
-  const invalidOption = getInvalidOption(parsedUserArgs.options);
-  parsedUserArgs.invalidOption = invalidOption;
-  return parsedUserArgs;
+  const nonNumericLines = lines.filter(line => !numericLines.includes(line));
+  return nonNumericLines.concat(numericLines.sort((a, b) => a - b));
 };
 
-module.exports = {
-  sortLines,
-  getInvalidOption,
-  parseUserArgs
-};
+module.exports = { numericSort, sortLines };
