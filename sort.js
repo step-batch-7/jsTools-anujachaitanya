@@ -6,6 +6,7 @@ const main = function() {
     reader: fs.readFile,
     encoding: "utf8"
   };
+
   sort(cmdLineArgs, fsTools, console.log, console.error);
 };
 
