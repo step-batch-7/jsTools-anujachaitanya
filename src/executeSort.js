@@ -1,5 +1,7 @@
 const { parseUserArgs, sortLines } = require("./sortLib");
 const EMPTY_STRING = "";
+const USAGE =
+  "Usage: sort [-bcCdfigMmnrsuz] [-kPOS1[,POS2] ... ] [+POS1 [-POS2]] [-S memsize] [-T tmpdir] [-t separator] [-o outfile] [--batch-size size] [--files0-from file] [--heapsort] [--mergesort] [--radixsort] [--qsort] [--mmap] [--parallel thread_no] [--human-numeric-sort] [--version-sort] [--random-sort [--random-source file]] [--compress-program program] [file ...]";
 
 const sortForFile = function(userOptions, error, data) {
   const errors = {
@@ -19,7 +21,7 @@ const sort = function(cmdLineArgs, reader, callback) {
   const userOptions = parseUserArgs(cmdLineArgs);
   if (userOptions.invalidOption) {
     callback(
-      `sort: invalid option -${userOptions.invalidOption}`,
+      `sort: invalid option -- ${userOptions.invalidOption}\n${USAGE}`,
       EMPTY_STRING
     );
     return;

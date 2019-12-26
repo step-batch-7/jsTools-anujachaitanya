@@ -11,10 +11,10 @@ const sortLines = function(options, lines) {
 
 const getInvalidOption = function(options) {
   const validOptions = ["-r", "-n"];
-  const invalidOptions = options.filter(
+  const invalidOption = options.filter(
     option => !validOptions.includes(option)
-  );
-  return invalidOptions[0];
+  )[0];
+  return invalidOption ? invalidOption.split("").slice(1) : undefined;
 };
 
 const parseUserArgs = function(userArgs) {
