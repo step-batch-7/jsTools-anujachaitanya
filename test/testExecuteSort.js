@@ -1,5 +1,7 @@
 const assert = require("chai").assert;
 const { sort, sortForFile } = require("../src/executeSort");
+const USAGE =
+  "Usage: sort [-bcCdfigMmnrsuz] [-kPOS1[,POS2] ... ] [+POS1 [-POS2]] [-S memsize] [-T tmpdir] [-t separator] [-o outfile] [--batch-size size] [--files0-from file] [--heapsort] [--mergesort] [--radixsort] [--qsort] [--mmap] [--parallel thread_no] [--human-numeric-sort] [--version-sort] [--random-sort [--random-source file]] [--compress-program program] [file ...]";
 
 describe("sort", () => {
   it("should return sorted contents if file is present", () => {
@@ -12,7 +14,7 @@ describe("sort", () => {
 
   it("should return error for invalid option", () => {
     const callback = function(error, contents) {
-      assert.strictEqual(error, "sort: invalid option --x");
+      assert.strictEqual(error, `sort: invalid option --x\n${USAGE}`);
       assert.strictEqual(contents, "");
     };
     sort(["sample.txt", "-x"], {}, callback);

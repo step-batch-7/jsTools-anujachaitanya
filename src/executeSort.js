@@ -21,7 +21,7 @@ const sort = function(cmdLineArgs, reader, callback) {
   const userOptions = parseUserArgs(cmdLineArgs);
   if (userOptions.invalidOption) {
     callback(
-      `sort: invalid option -- ${userOptions.invalidOption}\n${USAGE}`,
+      `sort: invalid option -${userOptions.invalidOption}\n${USAGE}`,
       EMPTY_STRING
     );
     return;
