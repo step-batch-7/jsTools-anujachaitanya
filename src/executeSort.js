@@ -10,7 +10,6 @@ const sortForFile = function(userOptions, error, data) {
     return;
   }
   this.callback(EMPTY_STRING, sortLines(userOptions.options, data));
-  return;
 };
 
 const sort = function(cmdLineArgs, reader, callback) {

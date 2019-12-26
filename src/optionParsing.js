@@ -5,9 +5,10 @@ const getInvalidOption = function(options) {
   );
   return invalidOptions[0];
 };
+
 const separateUserArgs = function(userArgs) {
   let parsedUserArgs = { path: undefined, options: [] };
-  userArgs.map(argv => {
+  userArgs.forEach(argv => {
     argv.startsWith("-")
       ? parsedUserArgs.options.push(argv)
       : (parsedUserArgs.path = argv);
@@ -24,5 +25,6 @@ const parseUserArgs = function(userArgs) {
 
 module.exports = {
   getInvalidOption,
-  parseUserArgs
+  parseUserArgs,
+  separateUserArgs
 };
