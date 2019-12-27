@@ -24,7 +24,7 @@ describe("parseUserArgs", () => {
   it("should parse the args for -n and -r both", () => {
     const expected = {
       path: "sample.txt",
-      options: ["-r", "-n"],
+      options: ["r", "n"],
       invalidOption: undefined
     };
     const actual = parseUserArgs(["-r", "-n", "sample.txt"]);
@@ -34,15 +34,15 @@ describe("parseUserArgs", () => {
 
 describe("getInvalidOption", () => {
   it("should return invalid options", () => {
-    assert.strictEqual(getInvalidOption(["-x"]), "-x");
+    assert.strictEqual(getInvalidOption(["x"]), "x");
   });
   it("should return undefined for valid options", () => {
-    assert.isUndefined(getInvalidOption(["-r"]));
+    assert.isUndefined(getInvalidOption(["r"]));
   });
   it("should return invalid options if others are valid options", () => {
-    assert.strictEqual(getInvalidOption(["-r", "-x"]), "-x");
+    assert.strictEqual(getInvalidOption(["r", "x"]), "x");
   });
   it("should return undefined for options -n", () => {
-    assert.isUndefined(getInvalidOption(["-n"]));
+    assert.isUndefined(getInvalidOption(["n"]));
   });
 });

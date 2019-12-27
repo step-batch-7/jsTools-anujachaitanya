@@ -15,7 +15,7 @@ const sortForFile = function(error, data) {
 const sort = function(cmdLineArgs, reader, displayResult) {
   const userOptions = parseUserArgs(cmdLineArgs);
   if (userOptions.invalidOption) {
-    displayResult(`sort: invalid option -${userOptions.invalidOption}\n${USAGE}`, EMPTY_STRING);
+    displayResult(`sort: invalid option -- ${userOptions.invalidOption}\n${USAGE}`, EMPTY_STRING);
     return;
   }
 

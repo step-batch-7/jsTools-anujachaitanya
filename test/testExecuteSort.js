@@ -14,7 +14,7 @@ describe("sort", () => {
 
   it("should return error for invalid option", () => {
     const displayResult = function(error, contents) {
-      assert.strictEqual(error, `sort: invalid option --x\n${USAGE}`);
+      assert.strictEqual(error, `sort: invalid option -- x\n${USAGE}`);
       assert.strictEqual(contents, "");
     };
     sort(["sample.txt", "-x"], {}, displayResult);
@@ -46,6 +46,6 @@ describe("sortForFile", () => {
       assert.strictEqual(contents, "c\nb\na");
     };
 
-    sortForFile.call({ displayResult, options: ["-r"] }, undefined, "c\na\nb");
+    sortForFile.call({ displayResult, options: ["r"] }, undefined, "c\na\nb");
   });
 });

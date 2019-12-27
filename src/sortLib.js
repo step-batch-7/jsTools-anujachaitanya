@@ -1,7 +1,7 @@
 const sortLines = function(options, lines) {
   let sortedLines = lines.split("\n").sort();
-  options.includes("-n") && (sortedLines = numericSort(sortedLines));
-  options.includes("-r") && sortedLines.reverse();
+  options.includes("n") && (sortedLines = numericSort(sortedLines));
+  options.includes("r") && sortedLines.reverse();
   return sortedLines.join("\n");
 };
 

@@ -1,18 +1,17 @@
 const getInvalidOption = function(options) {
-  const validOptions = ["-r", "-n"];
-  const invalidOptions = options.filter(
-    option => !validOptions.includes(option)
-  );
+  const validOptions = ["r", "n"];
+  const invalidOptions = options.filter(option => !validOptions.includes(option));
   return invalidOptions[0];
 };
 
 const extractOptions = userArgs => {
-  const options = userArgs.filter(argv => argv.startsWith("-"));
+  let options = userArgs.filter(argv => argv.startsWith("-"));
+  options = options.map(option => option.slice(1));
   return options;
 };
 
-const extractPath = (options, userArgs) => {
-  const path = userArgs.filter(userArg => !options.includes(userArg))[0];
+const extractPath = userArgs => {
+  const path = userArgs.filter(userArg => !userArg.startsWith("-"))[0];
   return path;
 };
 
@@ -23,7 +22,7 @@ const parseUserArgs = function(cmdLineArgs) {
     invalidOption: undefined
   };
   parsedUserArgs.options = extractOptions(cmdLineArgs);
-  parsedUserArgs.path = extractPath(parsedUserArgs.options, cmdLineArgs);
+  parsedUserArgs.path = extractPath(cmdLineArgs);
   parsedUserArgs.invalidOption = getInvalidOption(parsedUserArgs.options);
   return parsedUserArgs;
 };
