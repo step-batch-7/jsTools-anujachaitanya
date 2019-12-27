@@ -7,15 +7,18 @@ const USAGE =
 const sortForFile = function(error, data) {
   if (error) {
     this.displayResult(`sort: No such file or directory`, EMPTY_STRING);
+    process.exitCode = 2;
     return;
   }
   this.displayResult(EMPTY_STRING, sortLines(this.options, data));
+  return;
 };
 
 const sort = function(cmdLineArgs, reader, displayResult) {
   const userOptions = parseUserArgs(cmdLineArgs);
   if (userOptions.invalidOption) {
     displayResult(`sort: invalid option -- ${userOptions.invalidOption}\n${USAGE}`, EMPTY_STRING);
+    process.exitCode = 2;
     return;
   }
 
