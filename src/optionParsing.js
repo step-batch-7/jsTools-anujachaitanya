@@ -1,28 +1,33 @@
-const USAGE =
-  "Usage: sort [-bcCdfigMmnrsuz] [-kPOS1[,POS2] ... ] [+POS1 [-POS2]] [-S memsize] [-T tmpdir] [-t separator] [-o outfile] [--batch-size size] [--files0-from file] [--heapsort] [--mergesort] [--radixsort] [--qsort] [--mmap] [--parallel thread_no] [--human-numeric-sort] [--version-sort] [--random-sort [--random-source file]] [--compress-program program] [file ...]";
-
-const getInvalidOption = function(options) {
-  const validOptions = ["r", "n"];
-  const invalidOptions = options.filter(option => !validOptions.includes(option));
-  let error = invalidOptions[0]
-    ? `sort: invalid option -- ${invalidOptions[0]}\n${USAGE}`
-    : invalidOptions[0];
+const zero = 0;
+const one = 1;
+const getInvalidOption = function (options)
+{
+  const validOptions = ['r', 'n'];
+  const invalidOptions = options.filter(
+    option => !validOptions.includes(option)
+  );
+  const error = invalidOptions[zero]
+    ? `sort: invalid option -- ${invalidOptions[zero]}`
+    : invalidOptions[zero];
   return error;
 };
 
-const extractOptions = userArgs => {
-  let options = userArgs.filter(argv => argv.startsWith("-"));
-  options = options.map(option => option.slice(1));
+const extractOptions = userArgs =>
+{
+  let options = userArgs.filter(argv => argv.startsWith('-'));
+  options = options.map(option => option.slice(one));
   return options;
 };
 
-const extractPath = userArgs => {
-  const path = userArgs.filter(userArg => !userArg.startsWith("-"))[0];
+const extractPath = userArgs =>
+{
+  const path = userArgs.filter(userArg => !userArg.startsWith('-'))[zero];
   return path;
 };
 
-const parseUserArgs = function(cmdLineArgs) {
-  let parsedUserArgs = { path: undefined, options: [], error: undefined };
+const parseUserArgs = function (cmdLineArgs)
+{
+  const parsedUserArgs = { path: undefined, options: [], error: undefined };
   parsedUserArgs.options = extractOptions(cmdLineArgs);
   parsedUserArgs.path = extractPath(cmdLineArgs);
   parsedUserArgs.error = getInvalidOption(parsedUserArgs.options);

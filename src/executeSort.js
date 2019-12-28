@@ -1,19 +1,22 @@
-const { parseUserArgs } = require("./optionParsing");
-const { loadLines } = require("./sortLib");
+const { parseUserArgs } = require('./optionParsing');
+const { loadLines } = require('./sortLib');
+const exitCode = 2;
+const EMPTY_STRING = '';
 let inputStream = process.stdin;
-const EMPTY_STRING = "";
 
-const sort = function(cmdLineArgs, readStream, displayResult) {
+const sort = function (cmdLineArgs, readStream, displayResult)
+{
   const userOptions = parseUserArgs(cmdLineArgs);
 
   if (userOptions.error) {
     displayResult(userOptions.error, EMPTY_STRING);
-    process.exitCode = 2;
+    process.exitCode = exitCode;
     return;
   }
 
-  const finishCallback = ({ errorMsg, contents }) => {
-    errorMsg ? (contents = EMPTY_STRING) : (errorMsg = EMPTY_STRING);
+  const finishCallback = ({ errorMsg, contents }) =>
+  {
+    errorMsg ? contents = EMPTY_STRING : errorMsg = EMPTY_STRING;
     displayResult(errorMsg, contents);
   };
 
@@ -21,4 +24,4 @@ const sort = function(cmdLineArgs, readStream, displayResult) {
   loadLines(userOptions.options, inputStream, finishCallback);
 };
 
-module.exports = { sort, loadLines };
+module.exports = { sort };
