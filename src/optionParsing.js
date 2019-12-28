@@ -1,7 +1,13 @@
+const USAGE =
+  "Usage: sort [-bcCdfigMmnrsuz] [-kPOS1[,POS2] ... ] [+POS1 [-POS2]] [-S memsize] [-T tmpdir] [-t separator] [-o outfile] [--batch-size size] [--files0-from file] [--heapsort] [--mergesort] [--radixsort] [--qsort] [--mmap] [--parallel thread_no] [--human-numeric-sort] [--version-sort] [--random-sort [--random-source file]] [--compress-program program] [file ...]";
+
 const getInvalidOption = function(options) {
   const validOptions = ["r", "n"];
   const invalidOptions = options.filter(option => !validOptions.includes(option));
-  return invalidOptions[0];
+  let error = invalidOptions[0]
+    ? `sort: invalid option -- ${invalidOptions[0]}\n${USAGE}`
+    : invalidOptions[0];
+  return error;
 };
 
 const extractOptions = userArgs => {
@@ -16,18 +22,14 @@ const extractPath = userArgs => {
 };
 
 const parseUserArgs = function(cmdLineArgs) {
-  let parsedUserArgs = {
-    path: undefined,
-    options: [],
-    invalidOption: undefined
-  };
+  let parsedUserArgs = { path: undefined, options: [], error: undefined };
   parsedUserArgs.options = extractOptions(cmdLineArgs);
   parsedUserArgs.path = extractPath(cmdLineArgs);
-  parsedUserArgs.invalidOption = getInvalidOption(parsedUserArgs.options);
+  parsedUserArgs.error = getInvalidOption(parsedUserArgs.options);
   return parsedUserArgs;
 };
 
 module.exports = {
-  getInvalidOption,
-  parseUserArgs
+  parseUserArgs,
+  getInvalidOption
 };

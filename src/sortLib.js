@@ -1,3 +1,9 @@
+const fileErrors = {
+  ENOENT: `No such file or directory`,
+  EISDIR: `Is a directory`,
+  EACCES: `Permission denied`
+};
+
 const sortLines = function(options, lines) {
   let sortedLines = lines.split("\n").sort();
   options.includes("n") && (sortedLines = numericSort(sortedLines));
@@ -14,4 +20,21 @@ const numericSort = function(lines) {
   return nonNumericLines.concat(numericLines.sort((a, b) => a - b));
 };
 
-module.exports = { numericSort, sortLines };
+const loadLines = function(options, inputStream, finishCallback) {
+  let lines = "";
+
+  inputStream.on("error", error => {
+    const errorMsg = `sort: ${fileErrors[error.code]}`;
+    process.exitCode = 2;
+    finishCallback({ errorMsg });
+  });
+
+  inputStream.on("data", data => (lines += data));
+
+  inputStream.on("end", () => {
+    const contents = sortLines(options, lines);
+    finishCallback({ contents });
+  });
+};
+
+module.exports = { numericSort, sortLines, loadLines };

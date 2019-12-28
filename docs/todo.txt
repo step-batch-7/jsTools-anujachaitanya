@@ -20,3 +20,9 @@ node sort.js -r
 
 Done : 1. have to modify parseUserArgs() function now have to handle options
 Done : 2. modify sort function for options 
+
+v0.2>>>
+
+node sort.js
+
+1. sortForStdin(inputStream)

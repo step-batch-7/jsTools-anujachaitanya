@@ -1,4 +1,5 @@
-const { numericSort, sortLines } = require("../src/sortLib");
+const { numericSort, sortLines, loadLines } = require("../src/sortLib");
+const { EventEmitter } = require("events");
 const assert = require("chai").assert;
 describe("numericSort", () => {
   it("should sort given numbers", () => {
@@ -61,5 +62,54 @@ describe("sortLines", () => {
     const expected = "1\n2\na";
     const actual = sortLines([], "2\na\n1");
     assert.deepStrictEqual(actual, expected);
+  });
+});
+
+describe("loadLines", () => {
+  it("should give error if given file is not present", () => {
+    const finishCallback = function({ errorMsg, contents }) {
+      assert.strictEqual(errorMsg, "sort: No such file or directory");
+      assert.isUndefined(contents);
+    };
+
+    const inputStream = new EventEmitter();
+    loadLines([], inputStream, finishCallback);
+    inputStream.emit("error", { code: "ENOENT" });
+  });
+
+  it("should give sorted contents if data event is occurred", () => {
+    const finishCallback = function({ errorMsg, contents }) {
+      assert.isUndefined(errorMsg);
+      assert.strictEqual(contents, "a\nb\nc");
+    };
+
+    const inputStream = new EventEmitter();
+    loadLines([], inputStream, finishCallback);
+    inputStream.emit("data", "c\nb\na");
+    inputStream.emit("end");
+  });
+
+  it("should reverse sort contents if -r option is given ", () => {
+    const finishCallback = function({ errorMsg, contents }) {
+      assert.isUndefined(errorMsg);
+      assert.strictEqual(contents, "c\nb\na");
+    };
+
+    const inputStream = new EventEmitter();
+    loadLines(["r"], inputStream, finishCallback);
+    inputStream.emit("data", "a\nb\nc");
+    inputStream.emit("end");
+  });
+
+  it("should numeric sort if -n option is given", () => {
+    const finishCallback = function({ errorMsg, contents }) {
+      assert.isUndefined(errorMsg);
+      assert.strictEqual(contents, "1\n4\n5");
+    };
+
+    const inputStream = new EventEmitter();
+    loadLines(["n"], inputStream, finishCallback);
+    inputStream.emit("data", "4\n1\n5");
+    inputStream.emit("end");
   });
 });
