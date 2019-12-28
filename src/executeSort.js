@@ -5,6 +5,7 @@ const EMPTY_STRING = "";
 
 const sort = function(cmdLineArgs, readStream, displayResult) {
   const userOptions = parseUserArgs(cmdLineArgs);
+
   if (userOptions.error) {
     displayResult(userOptions.error, EMPTY_STRING);
     process.exitCode = 2;
@@ -16,11 +17,8 @@ const sort = function(cmdLineArgs, readStream, displayResult) {
     displayResult(errorMsg, contents);
   };
 
-  if (userOptions.path) {
-    inputStream = readStream(userOptions.path);
-  }
+  userOptions.path && (inputStream = readStream(userOptions.path));
   loadLines(userOptions.options, inputStream, finishCallback);
-  return;
 };
 
 module.exports = { sort, loadLines };

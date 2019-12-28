@@ -17,23 +17,24 @@ const numericSort = function(lines) {
     return Number.isInteger(+firstField);
   });
   const nonNumericLines = lines.filter(line => !numericLines.includes(line));
-  return nonNumericLines.concat(numericLines.sort((a, b) => a - b));
+  const sortedLines = nonNumericLines.concat(numericLines.sort((a, b) => a - b));
+  return sortedLines;
 };
 
-const loadLines = function(options, inputStream, finishCallback) {
+const loadLines = function(options, inputStream, callBack) {
   let lines = "";
 
   inputStream.on("error", error => {
     const errorMsg = `sort: ${fileErrors[error.code]}`;
     process.exitCode = 2;
-    finishCallback({ errorMsg });
+    callBack({ errorMsg });
   });
 
-  inputStream.on("data", data => (lines += data));
+  inputStream.on("data", data => (lines = lines.concat(data)));
 
   inputStream.on("end", () => {
     const contents = sortLines(options, lines);
-    finishCallback({ contents });
+    callBack({ contents });
   });
 };
 
