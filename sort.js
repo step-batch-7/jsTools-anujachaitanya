@@ -1,9 +1,11 @@
-const { sort } = require("./src/executeSort");
-const cmdLineArgs = process.argv.slice(2);
-const fs = require("fs");
-const main = function() {
-  sort(cmdLineArgs, fs.createReadStream, (error, content) => {
-    process.stdout.write(content);
+const { sort } = require('./src/executeSort');
+const [, , ...cmdLineArgs] = process.argv;
+const fs = require('fs');
+const main = function ()
+{
+  sort(cmdLineArgs, fs.createReadStream, ({ error, contents }) =>
+  {
+    process.stdout.write(contents);
     process.stderr.write(error);
   });
 };

@@ -6,7 +6,7 @@ describe('sort', function ()
 {
   it('should give error if options are invalid', () =>
   {
-    const displayResult = function (error, contents)
+    const displayResult = function ({ error, contents })
     {
       assert.strictEqual(contents, '');
       assert.strictEqual(error, 'sort: invalid option -- x');
@@ -16,7 +16,7 @@ describe('sort', function ()
 
   it('should sort a given file and pass result to callBack', function ()
   {
-    const displayResult = function (error, contents)
+    const displayResult = function ({ error, contents })
     {
       assert.strictEqual(contents, 'line1\nline2\nline3');
       assert.strictEqual(error, '');
@@ -34,7 +34,7 @@ describe('sort', function ()
 
   it('should give error to callback if error event is occurred', function ()
   {
-    const displayResult = function (error, contents)
+    const displayResult = function ({ error, contents })
     {
       assert.strictEqual(error, 'sort: No such file or directory');
       assert.strictEqual(contents, '');
@@ -52,7 +52,7 @@ describe('sort', function ()
 
   it('should give error if file is not readable', function ()
   {
-    const displayResult = function (error, contents)
+    const displayResult = function ({ error, contents })
     {
       assert.strictEqual(error, 'sort: Permission denied');
       assert.strictEqual(contents, '');
@@ -70,7 +70,7 @@ describe('sort', function ()
 
   it('should give error if given path is directory', function ()
   {
-    const displayResult = function (error, contents)
+    const displayResult = function ({ error, contents })
     {
       assert.strictEqual(error, 'sort: Is a directory');
       assert.strictEqual(contents, '');
@@ -88,7 +88,7 @@ describe('sort', function ()
 
   it('if path is not given should sort the contents from stdin', function ()
   {
-    const displayResult = function (error, contents)
+    const displayResult = function ({ error, contents })
     {
       assert.strictEqual(error, '');
       assert.strictEqual(contents, 'a\nb\nc');

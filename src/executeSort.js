@@ -9,18 +9,23 @@ const sort = function (cmdLineArgs, readStream, displayResult)
   const userOptions = parseUserArgs(cmdLineArgs);
 
   if (userOptions.error) {
-    displayResult(userOptions.error, EMPTY_STRING);
+    displayResult({ error: userOptions.error, contents: EMPTY_STRING });
     process.exitCode = exitCode;
     return;
   }
 
-  const finishCallback = ({ errorMsg, contents }) =>
+  const finishCallback = function ({ errorMsg, contents })
   {
-    errorMsg ? contents = EMPTY_STRING : errorMsg = EMPTY_STRING;
-    displayResult(errorMsg, contents);
+    if (errorMsg) {
+      displayResult({ error: errorMsg, contents: EMPTY_STRING });
+      return;
+    }
+    displayResult({ contents: contents, error: EMPTY_STRING });
   };
 
-  userOptions.path && (inputStream = readStream(userOptions.path));
+  if (userOptions.path) {
+    inputStream = readStream(userOptions.path);
+  }
   loadLines(userOptions.options, inputStream, finishCallback);
 };
 
