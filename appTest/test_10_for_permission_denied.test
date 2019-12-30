@@ -1,0 +1,2 @@
+(chmod -r ./appTest/sample_for_permission_denied.txt; node sort.js ./appTest/sample_for_permission_denied.txt; chmod +r ./appTest/sample_for_permission_denied.txt)
+sort: Permission denied

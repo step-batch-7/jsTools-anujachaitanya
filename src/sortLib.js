@@ -31,10 +31,10 @@ const errorCallback = function (error) {
 
 const loadLines = function (options, inputStream, callBack) {
   inputStream.on('error', errorCallback.bind({ callBack }));
+  
   let lines = '';
   inputStream.on('data', data => {
     lines = lines.concat(data);
-    return lines;
   });
 
   inputStream.on('end', () => {

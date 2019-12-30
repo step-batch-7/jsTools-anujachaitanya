@@ -13,7 +13,7 @@ describe('sort', function () {
 
   it('should sort a given file and pass result to callBack', function () {
     const displayResult = function ({ error, contents }) {
-      assert.strictEqual(contents, 'line1\nline2\nline3');
+      assert.strictEqual(contents, 'line1\nline2\nline3' );
       assert.strictEqual(error, '');
     };
     const inputStream = new EventEmitter();
@@ -22,7 +22,7 @@ describe('sort', function () {
       return inputStream;
     };
     sort(['sample.txt'], createReadStream, displayResult);
-    inputStream.emit('data', 'line1\nline2\nline3');
+    inputStream.emit('data', 'line1\nline2\nline3' );
     inputStream.emit('end');
   });
 
