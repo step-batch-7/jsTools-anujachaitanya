@@ -4,8 +4,7 @@ const exitCode = 2;
 const EMPTY_STRING = '';
 let inputStream = process.stdin;
 
-const sort = function (cmdLineArgs, readStream, displayResult)
-{
+const sort = function (cmdLineArgs, readStream, displayResult) {
   const userOptions = parseUserArgs(cmdLineArgs);
 
   if (userOptions.error) {
@@ -14,8 +13,7 @@ const sort = function (cmdLineArgs, readStream, displayResult)
     return;
   }
 
-  const finishCallback = function ({ errorMsg, contents })
-  {
+  const finishCallback = function ({ errorMsg, contents }) {
     if (errorMsg) {
       displayResult({ error: errorMsg, contents: EMPTY_STRING });
       return;
