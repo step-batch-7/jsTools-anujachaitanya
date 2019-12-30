@@ -1,3 +1,4 @@
+const sinon = require('sinon');
 const assert = require('chai').assert;
 const { EventEmitter } = require('events');
 const { sort } = require('../src/executeSort');
@@ -12,18 +13,16 @@ describe('sort', function () {
   });
 
   it('should sort a given file and pass result to callBack', function () {
-    const displayResult = function ({ error, contents }) {
-      assert.strictEqual(contents, 'line1\nline2\nline3' );
-      assert.strictEqual(error, '');
-    };
+    const displayResult = sinon.fake();
     const inputStream = new EventEmitter();
-    const createReadStream = function (path) {
-      assert.strictEqual(path, 'sample.txt');
-      return inputStream;
-    };
+    const createReadStream = sinon.stub();
+    createReadStream.withArgs('sample.txt').returns(inputStream);
     sort(['sample.txt'], createReadStream, displayResult);
-    inputStream.emit('data', 'line1\nline2\nline3' );
+    inputStream.emit('data', 'line1\nline2\nline3');
     inputStream.emit('end');
+    const endResult = { error: '', contents: 'line1\nline2\nline3' };
+    assert(displayResult.calledWith(endResult));
+    sinon.restore();
   });
 
   it('should give error to callback if error event is occurred', function () {

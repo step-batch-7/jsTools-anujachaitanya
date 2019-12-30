@@ -1,24 +1,26 @@
-const zero = 0;
-const one = 1;
 const getInvalidOption = function (options) {
   const validOptions = ['r', 'n'];
-  const invalidOptions = options.filter(
+  const [invalidOption] = options.filter(
     option => !validOptions.includes(option)
   );
-  const error = invalidOptions[zero]
-    ? `sort: invalid option -- ${invalidOptions[zero]}`
-    : invalidOptions[zero];
+  const error = invalidOption
+    ? `sort: invalid option -- ${invalidOption}`
+    : invalidOption;
   return error;
 };
 
 const extractOptions = userArgs => {
   let options = userArgs.filter(argv => argv.startsWith('-'));
-  options = options.map(option => option.slice(one));
+  options = options.map(option => {
+    const [, ...trimmedOption] = option.split('');
+    return trimmedOption.join('');
+  });
   return options;
 };
 
 const extractPath = userArgs => {
-  const path = userArgs.filter(userArg => !userArg.startsWith('-'))[zero];
+  const filePaths = userArgs.filter(userArg => !userArg.startsWith('-'));
+  const [path] = filePaths;
   return path;
 };
 
