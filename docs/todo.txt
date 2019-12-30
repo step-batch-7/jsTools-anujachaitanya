@@ -26,3 +26,8 @@ v0.2>>>
 node sort.js
 
 1. sortForStdin(inputStream)
+
+---------------------
+rename displayResult 
+rethinking about errorCallback 
+emits in tests

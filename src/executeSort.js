@@ -1,24 +1,23 @@
 const { parseUserArgs } = require('./optionParsing');
 const { loadLines } = require('./sortLib');
-const exitCode = 2;
 const EMPTY_STRING = '';
 let inputStream = process.stdin;
 
-const sort = function (cmdLineArgs, readStream, displayResult) {
+const sort = function (cmdLineArgs, readStream, onSortCompletion) {
   const userOptions = parseUserArgs(cmdLineArgs);
 
   if (userOptions.error) {
-    displayResult({ error: userOptions.error, contents: EMPTY_STRING });
-    process.exitCode = exitCode;
+    onSortCompletion({ error: userOptions.error, contents: EMPTY_STRING });
+    process.exitCode = 2;
     return;
   }
 
   const finishCallback = function ({ errorMsg, contents }) {
     if (errorMsg) {
-      displayResult({ error: errorMsg, contents: EMPTY_STRING });
+      onSortCompletion({ error: errorMsg, contents: EMPTY_STRING });
       return;
     }
-    displayResult({ contents: contents, error: EMPTY_STRING });
+    onSortCompletion({ contents: contents, error: EMPTY_STRING });
   };
 
   if (userOptions.path) {

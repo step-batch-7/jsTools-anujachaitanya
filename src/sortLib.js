@@ -2,8 +2,7 @@ const fileErrors = {
   ENOENT: 'No such file or directory',
   EISDIR: 'Is a directory',
   EACCES: 'Permission denied'
-};
-const exitCode = 2;
+};  
 
 const sortLines = function (options, lines) {
   let sortedLines = lines.split('\n').sort();
@@ -23,15 +22,14 @@ const numericSort = function (lines) {
   return nonNumericLines.concat(sortedNumberLines);
 };
 
-const errorCallback = function (error) {
-  const errorMsg = `sort: ${fileErrors[error.code]}`;
-  process.exitCode = exitCode;
-  this.callBack({ errorMsg });
-};
+
 
 const loadLines = function (options, inputStream, callBack) {
-  inputStream.on('error', errorCallback.bind({ callBack }));
-  
+  inputStream.on('error', (error) => {
+    const errorMsg = `sort: ${fileErrors[error.code]}`;
+    process.exitCode = 2;
+    callBack({ errorMsg });
+  });
   let lines = '';
   inputStream.on('data', data => {
     lines = lines.concat(data);
