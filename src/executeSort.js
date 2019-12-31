@@ -1,29 +1,29 @@
-const { parseUserArgs } = require('./optionParsing');
-const { loadLines } = require('./sortLib');
+const { sortLines} = require('./sortLib');
+const { readContent } = require('./streamReader');
 const EMPTY_STRING = '';
-let inputStream = process.stdin;
+const fileErrors = {
+  ENOENT: 'No such file or directory',
+  EISDIR: 'Is a directory',
+  EACCES: 'Permission denied'
+};
 
-const sort = function (cmdLineArgs, readStream, onSortCompletion) {
-  const userOptions = parseUserArgs(cmdLineArgs);
-
+const sort = function (userOptions, readStream, onSortCompletion) {
   if (userOptions.error) {
     onSortCompletion({ error: userOptions.error, contents: EMPTY_STRING });
     process.exitCode = 2;
     return;
   }
-
   const finishCallback = function ({ errorMsg, contents }) {
     if (errorMsg) {
-      onSortCompletion({ error: errorMsg, contents: EMPTY_STRING });
+      const error = `sort: ${fileErrors[errorMsg]}`;
+      onSortCompletion({ error, contents: EMPTY_STRING });
+      process.exitCode = 2;
       return;
     }
-    onSortCompletion({ contents: contents, error: EMPTY_STRING });
+    const sortedLines = sortLines(userOptions.options, contents);
+    onSortCompletion({ contents: sortedLines, error: EMPTY_STRING });
   };
-
-  if (userOptions.path) {
-    inputStream = readStream(userOptions.path);
-  }
-  loadLines(userOptions.options, inputStream, finishCallback);
+  readContent(readStream, finishCallback);
 };
 
 module.exports = { sort };

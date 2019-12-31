@@ -32,7 +32,17 @@ const parseUserArgs = function (cmdLineArgs) {
   return parsedUserArgs;
 };
 
+
+const createInputStream = function (options, stdin, createReadStream) {
+  if (options.path) {
+    return createReadStream(options.path);
+  }
+  return stdin;
+};
+
+
 module.exports = {
   parseUserArgs,
-  getInvalidOption
+  getInvalidOption, 
+  createInputStream
 };
