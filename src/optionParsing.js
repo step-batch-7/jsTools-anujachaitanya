@@ -34,10 +34,8 @@ const parseUserArgs = function (cmdLineArgs) {
 
 
 const createInputStream = function (options, stdin, createReadStream) {
-  if (options.path) {
-    return createReadStream(options.path);
-  }
-  return stdin;
+  const inputStream = options.path ? createReadStream(options.path) : stdin;
+  return inputStream;
 };
 
 

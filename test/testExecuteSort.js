@@ -17,7 +17,10 @@ describe('sort', function () {
     inputStream.on = sinon.stub();
     inputStream.on.withArgs('data').yields('a\nc\nb');
     inputStream.on.withArgs('end').yields();
-    sort({ options: []}, inputStream, displayResult);
+    const streams = { fileStream: () => {
+      return inputStream;
+    }, stdin: {}};
+    sort({ path: 'sample.txt', options: []}, streams, displayResult);
     sinon.assert.called(inputStream.on);
     const expected = { error: '', contents: 'a\nb\nc' };
     assert.ok(displayResult.calledOnceWithExactly(expected));
@@ -28,7 +31,11 @@ describe('sort', function () {
     const inputStream = {};
     inputStream.on = sinon.stub();
     inputStream.on.withArgs('error').yields({ code: 'ENOENT' });
-    sort(['sample.txt'], inputStream, displayResult);
+    const streams = {
+      fileStream: () => {
+        return inputStream;
+      }, stdin: {}};
+    sort({ path: 'sample.txt'}, streams, displayResult);
     sinon.assert.called(inputStream.on);
     const expected = { error: 'sort: No such file or directory', contents: ''};
     assert.ok(displayResult.calledOnceWithExactly(expected));
@@ -39,7 +46,11 @@ describe('sort', function () {
     const inputStream = {};
     inputStream.on = sinon.stub();
     inputStream.on.withArgs('error').yields({ code: 'EACCES' });
-    sort(['sample.txt'], inputStream, displayResult);
+    const streams = {
+      fileStream: () => {
+        return inputStream;
+      }, stdin: {}};
+    sort({ path: 'sample.txt'}, streams, displayResult);
     sinon.assert.called(inputStream.on);
     const expected = { error: 'sort: Permission denied', contents: '' };
     assert.ok(displayResult.calledOnceWithExactly(expected));
@@ -50,7 +61,11 @@ describe('sort', function () {
     const inputStream = {};
     inputStream.on = sinon.stub();
     inputStream.on.withArgs('error').yields({ code: 'EISDIR' });
-    sort(['sample.txt'], inputStream, displayResult);
+    const streams = {
+      fileStream: () => {
+        return inputStream;
+      }, stdin: {}};
+    sort({path: 'sample.txt'}, streams, displayResult);
     sinon.assert.called(inputStream.on);
     const expected = { error: 'sort: Is a directory', contents: '' };
     assert.ok(displayResult.calledOnceWithExactly(expected));

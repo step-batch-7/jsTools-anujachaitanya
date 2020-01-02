@@ -7,7 +7,7 @@ const fileErrors = {
   EACCES: 'Permission denied'
 };
 
-const sort = function (userOptions, readStream, onSortCompletion) {
+const sort = function (userOptions, streams, onSortCompletion) {
   if (userOptions.error) {
     onSortCompletion({ error: userOptions.error, contents: EMPTY_STRING });
     process.exitCode = 2;
@@ -23,7 +23,10 @@ const sort = function (userOptions, readStream, onSortCompletion) {
     const sortedLines = sortLines(userOptions.options, contents);
     onSortCompletion({ contents: sortedLines, error: EMPTY_STRING });
   };
-  readContent(readStream, finishCallback);
+  const readStream = userOptions.path ?
+    () => streams.fileStream(userOptions.path) :
+    () => streams.stdin;
+  readContent(readStream(), finishCallback);
 };
 
 module.exports = { sort };

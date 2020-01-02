@@ -64,3 +64,7 @@ describe('sortLines', () => {
     assert.deepStrictEqual(actual, expected);
   });
 });
+
+describe('createInputStream', () => {
+  
+});
