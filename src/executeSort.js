@@ -8,7 +8,6 @@ const fileErrors = {
 };
 
 const sort = function (userOptions, streams, onSortCompletion) {
-  streams = '';
   if (userOptions.error) {
     onSortCompletion({ error: userOptions.error, contents: EMPTY_STRING });
     process.exitCode = 2;

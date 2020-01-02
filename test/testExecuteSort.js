@@ -8,7 +8,7 @@ describe('sort', function () {
       assert.strictEqual(contents, '');
       assert.strictEqual(error, 'sort: invalid option -- x');
     };
-    sort({ error: 'sort: invalid option -- '}, {}, displayResult);
+    sort({ error: 'sort: invalid option -- x'}, {}, displayResult);
   });
 
   it('should sort a given file and pass result to callBack', function () {
