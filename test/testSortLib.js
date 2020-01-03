@@ -1,5 +1,5 @@
 const assert = require('chai').assert;
-const { numericSort, sortLines} = require('../src/sortLib');
+const {numericSort, sortLines} = require('../src/sortLib');
 
 describe('numericSort', () => {
   it('should sort given numbers', () => {

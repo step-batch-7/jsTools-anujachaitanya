@@ -25,22 +25,14 @@ const extractPath = userArgs => {
 };
 
 const parseUserArgs = function (cmdLineArgs) {
-  const parsedUserArgs = { path: undefined, options: [], error: undefined };
+  const parsedUserArgs = {path: undefined, options: [], error: undefined};
   parsedUserArgs.options = extractOptions(cmdLineArgs);
   parsedUserArgs.path = extractPath(cmdLineArgs);
   parsedUserArgs.error = getInvalidOption(parsedUserArgs.options);
   return parsedUserArgs;
 };
 
-
-const createInputStream = function (options, stdin, createReadStream) {
-  const inputStream = options.path ? createReadStream(options.path) : stdin;
-  return inputStream;
-};
-
-
 module.exports = {
   parseUserArgs,
-  getInvalidOption, 
-  createInputStream
+  getInvalidOption
 };

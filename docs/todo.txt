@@ -33,7 +33,9 @@ rethinking about errorCallback
 emits in tests 
 change the testing for stream // on fake a on event itself 
 
-stdin = { on : sinon.fake()};
-assert on first call of stdin.on args firstCall.args[0] , secondCall.args[0]
+Done : stdin = { on : sinon.fake()};
 and invoke their callback with desired params
 stdin.on.firstCall.args[1]('abc');
+
+single responsibility principle
+separations of concerns

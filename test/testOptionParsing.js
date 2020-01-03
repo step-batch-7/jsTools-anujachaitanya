@@ -1,5 +1,5 @@
 const assert = require('chai').assert;
-const { parseUserArgs, getInvalidOption } = require('../src/optionParsing');
+const {parseUserArgs, getInvalidOption} = require('../src/optionParsing');
 
 describe('parseUserArgs', () => {
   it('should return path for given arguments', () => {

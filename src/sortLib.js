@@ -15,5 +15,4 @@ const numericSort = function (lines) {
   return nonNumericLines.concat(sortedNumberLines);
 };
 
-
-module.exports = { numericSort, sortLines };
+module.exports = {numericSort, sortLines};
