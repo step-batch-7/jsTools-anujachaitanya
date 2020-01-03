@@ -10,7 +10,7 @@ Done : 4. parseUserArgs
 not needed right now : 5. filterUserArgs
 
 ------------------------if file is not present--------------------
-node sort.js sampl.txt
+node sort.js sample.txt
 
 Done : 1.modify loadContents function now it will return error too.
 Done : 2. make performSort file to avoid decision making in main. 
@@ -39,3 +39,5 @@ stdin.on.firstCall.args[1]('abc');
 
 single responsibility principle
 separations of concerns
+
+------------------------

@@ -33,6 +33,5 @@ const parseUserArgs = function (cmdLineArgs) {
 };
 
 module.exports = {
-  parseUserArgs,
-  getInvalidOption
+  parseUserArgs
 };

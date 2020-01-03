@@ -1,5 +1,5 @@
 const assert = require('chai').assert;
-const {parseUserArgs, getInvalidOption} = require('../src/optionParsing');
+const {parseUserArgs} = require('../src/optionParsing');
 
 describe('parseUserArgs', () => {
   it('should return path for given arguments', () => {
@@ -32,23 +32,14 @@ describe('parseUserArgs', () => {
     assert.deepStrictEqual(actual, expected);
   });
 
-});
-
-describe('getInvalidOption', () => {
-  it('should return invalid options', () => {
-    assert.strictEqual(getInvalidOption(['x']), 'sort: invalid option -- x');
+  it('should give error for invalid option ', () => {
+    const expected = {
+      path: 'sample.txt',
+      options: ['r', 'x'],
+      error: 'sort: invalid option -- x'
+    };
+    const actual = parseUserArgs(['-r', '-x', 'sample.txt']);
+    assert.deepStrictEqual(actual, expected);
   });
 
-  it('should return undefined for valid options', () => {
-    assert.isUndefined(getInvalidOption(['r']));
-  });
-
-  it('should return invalid options if others are valid options', () => {
-    const actual = getInvalidOption(['r', 'x']);
-    assert.strictEqual(actual, 'sort: invalid option -- x');
-  });
-
-  it('should return undefined for options -n', () => {
-    assert.isUndefined(getInvalidOption(['n']));
-  });
 });
