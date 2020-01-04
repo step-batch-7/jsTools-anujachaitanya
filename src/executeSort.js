@@ -1,21 +1,21 @@
-const {sortLines} = require('./sortLib');
-const {readStream} = require('./streamReader');
+const { sortLines } = require('./sortLib');
+const { readStream } = require('./streamReader');
 const EMPTY_STRING = '';
 
 const sort = function (userOptions, stdin, createFileStream, onSortCompletion) {
   if (userOptions.error) {
-    onSortCompletion({error: userOptions.error, contents: EMPTY_STRING});
+    onSortCompletion({ error: userOptions.error, contents: EMPTY_STRING });
     process.exitCode = 2;
     return;
   }
-  const finishCallback = function ({errorMsg, contents}) {
+  const finishCallback = function ({ errorMsg, contents }) {
     if (errorMsg) {
-      onSortCompletion({error: errorMsg, contents: EMPTY_STRING});
+      onSortCompletion({ error: errorMsg, contents: EMPTY_STRING });
       process.exitCode = 2;
       return;
     }
     const sortedLines = sortLines(userOptions.options, contents);
-    onSortCompletion({contents: sortedLines, error: EMPTY_STRING});
+    onSortCompletion({ contents: sortedLines, error: EMPTY_STRING });
   };
 
   const readableStream = userOptions.path ?
@@ -24,4 +24,4 @@ const sort = function (userOptions, stdin, createFileStream, onSortCompletion) {
   readStream(readableStream(), finishCallback);
 };
 
-module.exports = {sort};
+module.exports = { sort };

@@ -41,5 +41,4 @@ describe('parseUserArgs', () => {
     const actual = parseUserArgs(['-r', '-x', 'sample.txt']);
     assert.deepStrictEqual(actual, expected);
   });
-
 });

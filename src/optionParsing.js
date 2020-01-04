@@ -4,7 +4,7 @@ const getInvalidOption = function (options) {
     option => !validOptions.includes(option)
   );
   const error = invalidOption
-    ? `sort: invalid option -- ${invalidOption}`
+    ? `sort: invalid option -- ${ invalidOption }`
     : invalidOption;
   return error;
 };
@@ -25,7 +25,7 @@ const extractPath = userArgs => {
 };
 
 const parseUserArgs = function (cmdLineArgs) {
-  const parsedUserArgs = {path: undefined, options: [], error: undefined};
+  const parsedUserArgs = { path: undefined, options: [], error: undefined };
   parsedUserArgs.options = extractOptions(cmdLineArgs);
   parsedUserArgs.path = extractPath(cmdLineArgs);
   parsedUserArgs.error = getInvalidOption(parsedUserArgs.options);
