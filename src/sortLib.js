@@ -1,11 +1,11 @@
-const sortLines = function (options, lines) {
+const sortLines = function(options, lines) {
   let sortedLines = lines.split('\n').sort();
   options.includes('n') && (sortedLines = numericSort(sortedLines));
   options.includes('r') && sortedLines.reverse();
   return sortedLines.join('\n');
 };
 
-const numericSort = function (lines) {
+const numericSort = function(lines) {
   const numericLines = lines.filter(line => {
     const [firstField] = line.split('');
     return Number.isInteger(+firstField);
@@ -15,4 +15,4 @@ const numericSort = function (lines) {
   return nonNumericLines.concat(sortedNumberLines);
 };
 
-module.exports = {numericSort, sortLines};
+module.exports = { numericSort, sortLines };
