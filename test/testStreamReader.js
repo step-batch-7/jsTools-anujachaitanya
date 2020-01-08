@@ -1,10 +1,10 @@
 const sinon = require('sinon');
 const assert = require('chai').assert;
-const {readStream} = require('../src/streamReader');
+const { readStream } = require('../src/streamReader');
 
 describe('readContent', () => {
-  it('should return content given through readStream', (done) => {
-    const onReadComplete = function ({errorMsg, contents}) {
+  it('should return content given through readStream', done => {
+    const onReadComplete = function({ errorMsg, contents }) {
       assert.strictEqual(contents, 'a\nc\nb');
       assert.isUndefined(errorMsg);
       done();
@@ -17,20 +17,20 @@ describe('readContent', () => {
     sinon.assert.calledTwice(inputStream.on);
   });
 
-  it('should return content given through readStream', (done) => {
-    const callback = function ({ errorMsg, contents }) {
+  it('should return content given through readStream', done => {
+    const callback = function({ errorMsg, contents }) {
       assert.strictEqual(errorMsg, 'sort: No such file or directory');
       assert.isUndefined(contents);
       done();
     };
     const inputStream = {};
     inputStream.on = sinon.stub();
-    inputStream.on.withArgs('error').yields({code: 'ENOENT'});
+    inputStream.on.withArgs('error').yields({ code: 'ENOENT' });
     readStream(inputStream, callback);
   });
 
-  it('should return content given through stdin', (done) => {
-    const callback = function ({errorMsg, contents}) {
+  it('should return content given through stdin', done => {
+    const callback = function({ errorMsg, contents }) {
       assert.strictEqual(contents, 'a\nc\nb');
       assert.isUndefined(errorMsg);
       done();
