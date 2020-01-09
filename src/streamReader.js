@@ -1,8 +1,8 @@
-class Reader{
-  constructor(){
+class Reader {
+  constructor() {
     this.content = '';
   }
-  append(chunk){
+  append(chunk) {
     this.content += chunk;
   }
 }
@@ -15,10 +15,10 @@ const fileErrors = {
 
 const readStream = (readableStream, callback) => {
   const reader = new Reader();
-  readableStream.on('error', (error) => 
-    callback({errorMsg: `sort: ${fileErrors[error.code]}`})
+  readableStream.on('error', error =>
+    callback({ errorMsg: `sort: ${fileErrors[error.code]}` })
   );
-  readableStream.on('data', (chunk) => reader.append(chunk));
-  readableStream.on('end', () => callback( {contents: reader.content}));
+  readableStream.on('data', chunk => reader.append(chunk));
+  readableStream.on('end', () => callback({ contents: reader.content }));
 };
-module.exports = {readStream};
+module.exports = { readStream };
